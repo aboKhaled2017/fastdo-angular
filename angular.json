@@ -92,6 +92,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap-v4-rtl/dist/css/bootstrap-rtl.min.css",
               "src/styles.scss"
             ],
             "scripts": []

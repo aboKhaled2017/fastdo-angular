@@ -1,58 +1,59 @@
 @import './../../scss/variables';
-.mat-toolbar {
-  height:  50px;
-  &.primary{
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  .links{
-    margin-right: 3px;
-    a{
-      display: inline-block;
-      margin: auto 12px;
-      color: inherit;
-      text-decoration: none;
-      font-size: 15px;
+
+#navbar{
+    background: $primary;
+    padding: 0.3rem 1rem !important;
+    a.nav-link{
+      color:#fff;
+      &:hover{
+        background-color: rgb(0 0 0 / 6%);
+      }
     }
-  }
-  .rightLinks{
-    a{
-      margin: auto 5px;
-      border:1px solid #fff;
+    .navbar-nav{
+      .nav-item{
+        opacity: .7;
+        &.active{
+          opacity: 1;
+          //background: #388be430;
+          border-radius: 5px;
+        }
+        &+.nav-item{
+          margin-right: inherit;
+        }
+      }
     }
-  }
-  .spacer{
-    flex: 1 1 auto;
-  }
-  .app-logo{
-    &-wrapper{
-      width: 150px;
-      position: relative;
-    }
+    .app-logo{
+      &-wrapper{
+        width: 150px;
+        position: relative;
+      }
     cursor: pointer;
     max-width: 100%;
     position: absolute;
-    top: -25px;
+    top: -21px;
     right: -19px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 58px;
-    background:$primary;
-    img{
-      width:78%
-    }
-  }
-  &.sm{
-    overflow: hidden;
-    .app-logo{
-      &-wrapper{
-        width:130px;
-      }
+    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 87px;
+    background: #3f51b5;
+    &.sm{
       border-bottom-right-radius:0;
-        border-bottom-left-radius:0;
-        right: 0;
+      border-bottom-left-radius:0;
+      right: 0;
+      background: transparent;
+      position: static;
+      img{
+        width:100px;
+      }
     }
-  }
+      img{
+        width:80%
+      }
+    }
+    
+    .navbar-toggler:focus{
+      outline: 1px auto #007bff;
+    }
 }
+
 
 

@@ -1,0 +1,22 @@
+#homeSection{
+    margin-top: 0px;
+        color: #fff;
+       
+    .top-section{
+        background-image: url(../../../assets/homeImage.jpg);
+        background-size: cover;
+        padding-top: 30px;
+        .img-wrapper{
+            img{
+                width:150px;
+                height: 150px;
+                transition: all .2s ease-in-out;
+                &:hover{
+                 padding: 10px;
+                 border: 2px solid #3f51b58c;
+                }
+            }
+            margin-bottom: 5px;
+        }
+    }
+}

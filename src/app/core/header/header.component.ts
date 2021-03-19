@@ -1,8 +1,5 @@
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -11,12 +8,6 @@ import { map, shareReplay } from 'rxjs/operators';
 
 })
 export class HeaderComponent  {
-  
-  @Input('isHandset') isHandset$: Observable<boolean>;
-  @Input('drawer') drawer;
-  @Output('OnAppTitleClicked') OnAppTitleClicked=new EventEmitter();
+  public isMenuCollapsed = true;
   constructor() {}
-  OnAppTitleClick(){
-    this.OnAppTitleClicked.emit();
-  }
 }

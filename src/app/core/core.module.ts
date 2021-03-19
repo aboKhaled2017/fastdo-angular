@@ -13,26 +13,40 @@ import { JwtInterceptor } from '../shared/helpers/Jwt.Interceptor';
 import { ErrorInterceptor } from '../shared/helpers/error-interceptor';
 import { AuthModule } from '../auth/auth.module';
 import { CoreComponent } from './core.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ServicesSectionComponent } from './home/services-section/services-section.component';
+import { LoaderService } from '../shared/services/loader-service.service';
+import { LoaderInterceptor } from '../shared/helpers/loader.interceptor';
+import { ToastComponent } from './toast/toast.component';
+import { ToastService } from '../shared/services/toast.service.';
+import { SharedModule } from '../shared/shared.module';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, HomeComponent, PageNotFoundComponent, CoreComponent],
+  declarations: [HeaderComponent, FooterComponent, HomeComponent, PageNotFoundComponent,
+     CoreComponent, ServicesSectionComponent, ToastComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     AuthModule,
-    CoreRoutingModule
+    CoreRoutingModule,
+    NgbModule,
+    SharedModule
   ],
   providers:[
     AuthService,
     AuthGuardService,
     UserService,
+    LoaderService,
+    ToastService,
+    {provide:HTTP_INTERCEPTORS,useClass:LoaderInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true}
   ],
   exports:[
-    CoreComponent
+    CoreComponent,
+    ToastComponent
   ]
 })
 export class CoreModule { }
