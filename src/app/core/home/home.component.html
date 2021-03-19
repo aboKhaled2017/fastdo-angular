@@ -1,0 +1,13 @@
+<h2>Welcom home</h2>
+<div [ngSwitch]="isLogged">
+<h4 *ngSwitchCase="true">
+    You're logged in
+</h4>
+<h4 *ngSwitchCase="false">
+    You're not logged in
+</h4>
+<h4 *ngSwitchDefault>
+ you're almost not logged
+</h4>
+</div>
+

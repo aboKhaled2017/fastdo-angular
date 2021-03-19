@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" [ngClass]="{'sm':(isHandset$ | async)}">
+    <button
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="drawer.toggle()"
+      *ngIf="isHandset$ | async">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <div class="app-logo-wrapper">
+     <div class="app-logo">
+      <img src="./../../../assets/logo.png" 
+           (click)="OnAppTitleClick()"/>
+     </div>
+    </div>
+    <div *ngIf="!(isHandset$ | async)" class="links">
+      <a routerLink="/aboutus">ماذا عنا</a>
+      <a routerLink="/contactus">تواصل معنا</a>
+    </div>
+    <span class="spacer"></span>
+    <div class="rightLinks">
+      <a routerLink="/join" mat-stroked-button>
+        <mat-icon>person</mat-icon> انضم الينا
+      </a>
+      <a routerLink="/signin" mat-stroked-button >
+        <mat-icon>login</mat-icon> دخول
+      </a>
+    </div>
+  </mat-toolbar>
