@@ -5,8 +5,6 @@ import { SigninComponent } from '../auth/signin/signin.component';
 import { JoinComponent } from '../auth/join/join.component';
 
 const authRoutes:Routes=[
- {path:'signin',component:SigninComponent},
- {path:'join',component:JoinComponent},
  {path:'aboutus', loadChildren:()=>import('../about-us/about-us.module').then(m=>m.AboutUsModule)},
  {path:'contactus',  loadChildren:()=>import('../contact-us/contact-us.module').then(m=>m.ContactUsModule)}
 ]

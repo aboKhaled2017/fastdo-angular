@@ -4,8 +4,10 @@ import { SigninComponent } from './signin/signin.component';
 import { JoinComponent } from './join/join.component';
 
 const authRoutes: Routes = [
-  { path: 'join', component: JoinComponent },
-  { path: 'signin', component: SigninComponent },
+  {path:'',children:[
+    { path: 'join', component: JoinComponent },
+    { path: 'signin', component: SigninComponent },
+  ]},
 ];
 
 @NgModule({

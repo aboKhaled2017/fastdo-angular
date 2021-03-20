@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
 import { Role } from './shared/models/Role';
 import { User } from './shared/models/User';
 import { AuthService } from './shared/services/auth.service';
@@ -11,12 +11,19 @@ import { AuthService } from './shared/services/auth.service';
 })
 export class AppComponent {
   currentUser: User;
-
+  loadingLazyLoadedRoute=false;
   constructor(
       private router: Router,
-      private authenticationService: AuthService
-  ) {
+      private authenticationService: AuthService) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      //on routing lazy loaded components
+      this.router.events.subscribe(event => {
+        if (event instanceof RouteConfigLoadStart) {
+            this.loadingLazyLoadedRoute = true;
+        } else if (event instanceof RouteConfigLoadEnd) {
+            this.loadingLazyLoadedRoute = false;
+        }
+    });
   }
 
   get userRole() {

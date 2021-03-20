@@ -11,7 +11,6 @@ import { UserService } from '../shared/services/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../shared/helpers/Jwt.Interceptor';
 import { ErrorInterceptor } from '../shared/helpers/error-interceptor';
-import { AuthModule } from '../auth/auth.module';
 import { CoreComponent } from './core.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesSectionComponent } from './home/services-section/services-section.component';
@@ -29,7 +28,6 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     HttpClientModule,
-    AuthModule,
     CoreRoutingModule,
     NgbModule,
     SharedModule

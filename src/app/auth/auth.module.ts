@@ -4,13 +4,17 @@ import { JoinComponent } from './join/join.component';
 import { SigninComponent } from './signin/signin.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { JoinAsPhrmacyComponent } from './join/join-as-phrmacy/join-as-phrmacy.component';
+import { JoinAsStoreComponent } from './join/join-as-store/join-as-store.component';
 
 
 
 @NgModule({
   declarations: [
     SigninComponent,
-    JoinComponent
+    JoinComponent,
+    JoinAsPhrmacyComponent,
+    JoinAsStoreComponent
   ],
   imports: [
     CommonModule,
