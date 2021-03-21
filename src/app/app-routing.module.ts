@@ -5,7 +5,7 @@ import { PageNotFoundComponent } from './core/page-not-found/page-not-found.comp
 
 const routes: Routes = [
   {path:'', component: HomeComponent,pathMatch:'full'},
-  {path:'signin',loadChildren:()=>import('./auth/auth.module').then(m=>m.AuthModule)},
+  {path:'auth',loadChildren:()=>import('./auth/auth.module').then(m=>m.AuthModule)},
   {path:'**',component:PageNotFoundComponent}
 ];
 
