@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/User';
+import { User, UserFactory } from '../models/User';
 import {map} from 'rxjs/operators'
 import { ILogin } from '../models/ILogin';
+import { Router } from '@angular/router';
 
 @Injectable()  
 export class AuthService {
@@ -13,8 +14,10 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
-      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(this.currentUserName)));
+  constructor(private http: HttpClient,private router:Router) {
+    const _user=JSON.parse(localStorage.getItem(this.currentUserName));
+      const user=UserFactory.createUser(_user);
+      this.currentUserSubject = new BehaviorSubject<User>(user);
       this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -30,7 +33,7 @@ export class AuthService {
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
                   localStorage.setItem(this.currentUserName, JSON.stringify(data.user));
                   localStorage.setItem(this.tokenName, JSON.stringify(data.accessToken.token));
-                  this.currentUserSubject.next(data.user);
+                  this.currentUserSubject.next(UserFactory.createUser(data.user));
               }
 
               return data;
@@ -42,6 +45,7 @@ export class AuthService {
       localStorage.removeItem(this.currentUserName);
       localStorage.removeItem(this.tokenName);
       this.currentUserSubject.next(null);
+      this.router.navigate(['/']);
   }
   
   isAuthenticated():boolean{

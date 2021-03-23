@@ -3,6 +3,9 @@
 #navbar{
     background: $primary;
     padding: 0.3rem 1rem !important;
+    .dropdown{
+      cursor: pointer;
+    }
     a.nav-link{
       color:#fff;
       &:hover{

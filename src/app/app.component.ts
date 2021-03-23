@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
-import { Role } from './shared/models/Role';
 import { User } from './shared/models/User';
 import { AuthService } from './shared/services/auth.service';
 
@@ -27,7 +26,7 @@ export class AppComponent {
   }
 
   get userRole() {
-      return  this.currentUser?.getRole || null;
+      return  this.currentUser?.role;
   }
 
   logout() {

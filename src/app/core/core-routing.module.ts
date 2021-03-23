@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { SigninComponent } from '../auth/signin/signin.component';
-import { JoinComponent } from '../auth/join/join.component';
 
 const authRoutes:Routes=[
  {path:'aboutus', loadChildren:()=>import('../about-us/about-us.module').then(m=>m.AboutUsModule)},

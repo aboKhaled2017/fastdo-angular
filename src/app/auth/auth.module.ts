@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JoinAsPhrmacyComponent } from './join/join-as-phrmacy/join-as-phrmacy.component';
 import { JoinAsStoreComponent } from './join/join-as-store/join-as-store.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -18,6 +19,7 @@ import { JoinAsStoreComponent } from './join/join-as-store/join-as-store.compone
   ],
   imports: [
     CommonModule,
+    SharedModule,
     ReactiveFormsModule,
     AuthRoutingModule
   ]

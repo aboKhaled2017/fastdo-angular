@@ -16,9 +16,11 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.authService.logout();
           location.reload(true);
       }
-      if(err.error?.status==400) return throwError(err.error.errors
-                 ?this.uilityService.convertObjPropsToCamleCseString(err.error.errors)
-                 :err);
+      if(err.error.errors || err.error?.status==400){
+        return throwError(err.error.errors
+          ?this.uilityService.convertObjPropsToCamleCseString(err.error.errors)
+          :err);
+      }
       //const error = err.error.message || err.statusText;
       return throwError(err);
   }))

@@ -22,31 +22,61 @@
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <a class="nav-link" routerLink="/contactus">تواصل معنا</a>
         </li>
-        <li class="nav-item dropdown d-none">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
+
+        <ng-container *ngIf="role=='pharmacy'">
+            <li class="nav-item" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+              <a class="nav-link" routerLink="/pharmacy/mydrugs">رواكدى</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              <a class="nav-link" routerLink="/pharmacy/serachdrugs">البحث عن الرواكد</a>
+            </li>
+            <li class="nav-item dropdown" ngbDropdown>
+              <a class="nav-link dropdown-toggle" 
+                id="navbarDropdown" role="button" data-toggle="dropdown" 
+                aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                صفحات اخرى
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" ngbDropdownMenu >
+                <a ngbDropdownItem class="dropdown-item" routerLink="/pharmacy/mystores">المخازن خاصتى</a>
+                <a ngbDropdownItem class="dropdown-item" routerLink="/pharmacy/request-drugs-from-stores">طلب ادوية</a>
+              </div>
+            </li>
+        </ng-container>
+        
+        <ng-container *ngIf="role=='store'">
+          <li class="nav-item" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact: true}">
+            <a class="nav-link" routerLink="/store/manage-store">مخزنى</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a class="nav-link" routerLink="/store/store-requested-drugs">طلبات الرواكد</a>
+          </li>
+      </ng-container>
       </ul>
       <div class="d-flex my-2 my-lg-0 buttons">
-        <button routerLink="/auth/join" 
-                class="btn btn-outline-light  my-2 my-sm-0 mx-1"
-                routerLinkActive="active">
-                <i class="fa fa-user ml-1"></i>
-                انضم الينا
-        </button>
-        <button routerLink="/auth/signin" 
-                class="btn btn-outline-light  my-2 my-sm-0 mx-1"
-                routerLinkActive="active">
-                <i  class="fa fa-sign-in ml-1" aria-hidden="true"></i>
-                دخول
-        </button>
+        <ng-container *ngIf="!isLogged; else logout"> 
+          <button routerLink="/auth/join" 
+          class="btn btn-outline-light  my-2 my-sm-0 mx-1"
+          routerLinkActive="active">
+          <i class="fa fa-user ml-1"></i>
+          انضم الينا
+          </button>
+          <button routerLink="/auth/signin" 
+                  class="btn btn-outline-light  my-2 my-sm-0 mx-1"
+                  routerLinkActive="active">
+                  <i  class="fa fa-sign-in ml-1" aria-hidden="true"></i>
+                  دخول
+          </button>
+        </ng-container>
+        <ng-template #logout>
+          <button class="btn btn-outline-light  my-2 my-sm-0 mx-1"
+                  (click)="logoutUser()">
+                  <i  class="fa fa-sign-in ml-1"></i>
+                  خروج
+          </button>
+        </ng-template>
+        
       </div>
     </div>
 </nav>

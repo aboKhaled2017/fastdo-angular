@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './signin/signin.component';
 import { JoinComponent } from './join/join.component';
+import { JoinAsPhrmacyComponent } from './join/join-as-phrmacy/join-as-phrmacy.component';
+import { JoinAsStoreComponent } from './join/join-as-store/join-as-store.component';
 
 const authRoutes: Routes = [
   {path:'',children:[
-    { path: 'join', component: JoinComponent },
-    { path: 'signin', component: SigninComponent },
+    { path: 'join', component: JoinComponent,children:[
+      {path:'as-pharmacy',component:JoinAsPhrmacyComponent},
+      {path:'as-store',component:JoinAsStoreComponent}
+    ]},
+    { path: 'signin', component: SigninComponent},
   ]},
 ];
 

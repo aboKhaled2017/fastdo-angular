@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonUtilityService } from './services/commonUtility.service';
+import { FormLiveStatusComponent } from './components/form-live-status/form-live-status.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [FormLiveStatusComponent],
   imports: [
     CommonModule
   ],
-  providers:[CommonUtilityService]
+  providers:[CommonUtilityService],
+  exports:[
+    FormLiveStatusComponent
+  ]
 })
 export class SharedModule { }
