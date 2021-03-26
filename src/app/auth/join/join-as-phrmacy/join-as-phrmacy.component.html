@@ -1,1 +1,79 @@
-<p>join-as-phrmacy works!</p>
+<section id="form">
+  <div class="contain-fluid">
+      <div *ngIf="!completed" class="row">
+          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+            <div class="alert-danger text-center" *ngIf="generalError">
+                <span>{{generalError}}</span>
+            </div>
+            <form [formGroup]="form" class="needs-validation">
+                <app-join-as-pharmacy-step1 #step1 [g]="form.get('0')" 
+                                            [step]="currentStep">      
+                </app-join-as-pharmacy-step1>
+                <app-join-as-pharmacy-step2 #step2 [g]="form.get('1')" 
+                                            [step]="currentStep">     
+                </app-join-as-pharmacy-step2>
+                <app-join-as-pharmacy-step3 #step3 [g]="form.get('2')" 
+                                            [step]="currentStep">     
+                </app-join-as-pharmacy-step3>
+                <app-join-as-pharmacy-step4 #step4 [g]="form.get('3')"
+                                            (onValid)="onSubmit()"
+                                            [step]="currentStep">     
+                </app-join-as-pharmacy-step4>
+               
+                <div>
+                    <div class="buttons form-group d-flex flex-row justify-content-center align-items-center">
+                        <button *ngIf="currentStep==3" class="btn btn-primary" 
+                                (click)="step4.onNext()"
+                                [disabled]="loading || group(currentStep).invalid">
+                            <span *ngIf="loading">
+                                <span  class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                <span>جارى التحميل...</span>
+                            </span>
+                            
+                            <span *ngIf="!loading">
+                                <i class="fa fa-send mr-2"></i>
+                                 <span>ارسال</span>
+                            </span>
+                        </button>
+                        <button *ngIf="(currentStep<3)" 
+                                (click)="currentStep==0?step1.onNext():currentStep==1?step2.onNext():currentStep==2?step3.onNext():onNext()"
+                                [disabled]="loading || group(currentStep).invalid"
+                                type="button"
+                                class="btn btn-info">
+                                    <span *ngIf="loading">
+                                        <span  class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                        <span>جارى التحميل...</span>
+                                    </span>
+                                    
+                                    <span *ngIf="!loading">
+                                        <i class="fa fa-arrow-right mr-2"></i>
+                                        <span>التالى</span>
+                                    </span>
+                        </button>
+                        <button *ngIf="(currentStep>0)"
+                                (click)="onPrev()" 
+                                type="button"
+                                class="btn btn-danger">
+                            <i class="fa fa-arrow-left mr-2"></i>
+                            <span>السابق</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+          </div>          
+      </div>
+      <div *ngIf="completed" class="row">
+         <div class="col-12">
+            <app-success-signup></app-success-signup>
+         </div>
+      </div>
+      <div class="row">
+       <!--  <div class="col-12">
+            <app-form-live-status [form]="form.get('2')" [props]="['persPhone','linePhone','confirmPassword']">
+            </app-form-live-status>
+            <app-form-live-status [form]="form.get('3')" [props]="['email','password','confirmPassword']">
+            </app-form-live-status>
+        </div> -->
+      </div>
+  </div>
+</section>

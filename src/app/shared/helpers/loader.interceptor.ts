@@ -6,11 +6,19 @@ import { LoaderService } from '../services/loader-service.service';
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor{
     private requests: HttpRequest<any>[] = [];
+    private isBackgroundService=false;
     constructor (private loaderService:LoaderService){}
-
+ 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.requests.push(req);
-        this.loaderService.isLoading.next(true);
+        this.isBackgroundService=req.url.endsWith(`areas/all`);
+        if(this.isBackgroundService){
+           this.loaderService.isBackgroundLoading.next(true);
+        }
+        else{
+          this.loaderService.isLoading.next(true);
+        }
+      
         // We create a new observable which we return instead of the original
         return new Observable(
             observer => {
@@ -37,7 +45,13 @@ export class LoaderInterceptor implements HttpInterceptor{
         if (i >= 0) {
           this.requests.splice(i, 1);
         }
+        if(this.isBackgroundService){
+          this.loaderService.isBackgroundLoading.next(false);
+       }
+       else{
         this.loaderService.isLoading.next(this.requests.length > 0);
+       }
+     
     }
     
 }

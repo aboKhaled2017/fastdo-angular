@@ -1,11 +1,14 @@
 #homeSection{
     margin-top: 0px;
         color: #fff;
-       
     .top-section{
         background-image: url(/assets/homeImage.jpg);
         background-size: cover;
         padding-top: 30px;
+        min-height:400px;
+        @media (max-width:800px) {
+            min-height: auto;
+        }
         .img-wrapper{
             img{
                 width:150px;

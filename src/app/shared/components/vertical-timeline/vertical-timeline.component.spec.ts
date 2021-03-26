@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JoinAsStoreComponent } from './join-as-store.component';
+import { VerticalTimelineComponent } from './vertical-timeline.component';
 
-describe('JoinAsStoreComponent', () => {
-  let component: JoinAsStoreComponent;
-  let fixture: ComponentFixture<JoinAsStoreComponent>;
+describe('VerticalTimelineComponent', () => {
+  let component: VerticalTimelineComponent;
+  let fixture: ComponentFixture<VerticalTimelineComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JoinAsStoreComponent ]
+      declarations: [ VerticalTimelineComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JoinAsStoreComponent);
+    fixture = TestBed.createComponent(VerticalTimelineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

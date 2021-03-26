@@ -8,8 +8,8 @@ import { JoinAsStoreComponent } from './join/join-as-store/join-as-store.compone
 const authRoutes: Routes = [
   {path:'',children:[
     { path: 'join', component: JoinComponent,children:[
-      {path:'as-pharmacy',component:JoinAsPhrmacyComponent},
-      {path:'as-store',component:JoinAsStoreComponent}
+      {path:'as-pharmacy',component:JoinAsPhrmacyComponent,data:{type:'pharmacy'}},
+      {path:'as-store',component:JoinAsStoreComponent,data:{type:'store'}}
     ]},
     { path: 'signin', component: SigninComponent},
   ]},

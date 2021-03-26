@@ -17,10 +17,10 @@
                     <div class="form-group">
                         <input type="email" class="form-control"
                                formControlName="email"
-                               [ngClass]="{'notArabicFont':f.email.value && f.email.value.length>0}"
+                               [appTrackArabicText]="f.email"
                                [ngClass]="{'border-danger':f.email.touched && f.email.invalid}"
                                placeholder="البريد الالكترونى">
-                        <div class="text-danger" *ngIf="f.email.touched && f.email.invalid">
+                    <div class="text-danger" *ngIf="f.email.touched && f.email.invalid">
                             <span *ngIf="f.email.errors.required">
                                  البريد الالكترونى مطلوب 
                             </span>

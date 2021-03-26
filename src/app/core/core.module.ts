@@ -20,6 +20,7 @@ import { ToastService } from '../shared/services/toast.service.';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from '../shared/helpers/Guards/auth.guard';
 import { AlreadySignedGuard } from '../shared/helpers/Guards/already-signed.guard';
+import { DataStorageService } from '../shared/services/data-storage.service';
 
 
 
@@ -41,6 +42,7 @@ import { AlreadySignedGuard } from '../shared/helpers/Guards/already-signed.guar
     UserService,
     LoaderService,
     ToastService,
+    DataStorageService,
     {provide:HTTP_INTERCEPTORS,useClass:LoaderInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true}

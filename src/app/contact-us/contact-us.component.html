@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <input type="text" 
                                class="form-control"
-                               [ngClass]="{'notArabicFont':f.email.value && f.email.value.length>0}"
+                               [appTrackArabicText]="f.email"
                                formControlName="email"
                                [ngClass]="{'border-danger':f.email.touched && f.email.invalid}"
                                placeholder="* البريد الالكترونى">

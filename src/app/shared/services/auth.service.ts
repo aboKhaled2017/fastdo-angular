@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User, UserFactory } from '../models/User';
 import {map} from 'rxjs/operators'
-import { ILogin } from '../models/ILogin';
+import { ILogin, UserType } from '../models/ILogin';
 import { Router } from '@angular/router';
 
 @Injectable()  
@@ -39,7 +39,21 @@ export class AuthService {
               return data;
           }));
   }
+  signup(signupData:FormData,userType:UserType) {
+    let str=userType==UserType.Pharmacier?'ph':'stk';
+    return this.http.post<any>(`${environment.apiUrl}/${str}/signup`, signupData)
+        .pipe(map(data => {
+            // login successful if there's a jwt token in the response
+            if (data && data.accessToken) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem(this.currentUserName, JSON.stringify(data.user));
+                localStorage.setItem(this.tokenName, JSON.stringify(data.accessToken.token));
+                this.currentUserSubject.next(UserFactory.createUser(data.user));
+            }
 
+            return data;
+        }));
+}
   logout() {
       // remove user from local storage to log user out
       localStorage.removeItem(this.currentUserName);

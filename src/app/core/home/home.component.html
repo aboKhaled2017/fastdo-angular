@@ -5,7 +5,7 @@
             <h2>انضم الى فاست دو واستخدم كل خدماتها</h2>
             <h6>يسعدنا ان تسجل لدى موقعنا وتنضم الينا</h6>
         </div>
-        <div class="row text-center">
+        <div *ngIf="!isLogged" class="row text-center">
             <div class="col-sm-6 col-xs-12">
                <div class="img-wrapper">
                    <img class="img-thumbnail rounded-circle" src="../../../assets/pharmacyIcon.png" alt="">
