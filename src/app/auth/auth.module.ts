@@ -16,6 +16,8 @@ import { JoinAsStoreStep2Component } from './join/join-as-store/join-as-store-st
 import { JoinAsStoreStep3Component } from './join/join-as-store/join-as-store-step3/join-as-store-step3.component';
 import { JoinAsStoreStep4Component } from './join/join-as-store/join-as-store-step4/join-as-store-step4.component';
 import { SuccessSignupComponent } from './join/success-signup/success-signup.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 
 
 
@@ -33,7 +35,9 @@ import { SuccessSignupComponent } from './join/success-signup/success-signup.com
     JoinAsStoreStep2Component,
     JoinAsStoreStep3Component,
     JoinAsStoreStep4Component,
-    SuccessSignupComponent
+    SuccessSignupComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,

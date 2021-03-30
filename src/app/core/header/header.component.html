@@ -55,28 +55,48 @@
       </ng-container>
       </ul>
       <div class="d-flex my-2 my-lg-0 buttons">
-        <ng-container *ngIf="!isLogged; else logout"> 
-          <button routerLink="/auth/join/as-pharmacy" 
-          class="btn btn-outline-light  my-2 my-sm-0 mx-1"
-          routerLinkActive="active">
-          <i class="fa fa-user ml-1"></i>
-          انضم الينا
-          </button>
-          <button routerLink="/auth/signin" 
-                  class="btn btn-outline-light  my-2 my-sm-0 mx-1"
-                  routerLinkActive="active">
-                  <i  class="fa fa-sign-in ml-1" aria-hidden="true"></i>
-                  دخول
-          </button>
-        </ng-container>
-        <ng-template #logout>
-          <button class="btn btn-outline-light  my-2 my-sm-0 mx-1"
-                  (click)="logoutUser()">
-                  <i  class="fa fa-sign-in ml-1"></i>
-                  خروج
-          </button>
-        </ng-template>
-        
+        <ul class="navbar-nav d-inline-flex">
+          <ng-container *ngIf="!isLogged; else logged"> 
+            <li class="nav-item">
+              <button routerLink="/auth/join/as-pharmacy" 
+                class="btn btn-outline-light  my-2 my-sm-0 mx-1"
+                routerLinkActive="active">
+                <i class="fa fa-user ml-1"></i>
+                انضم الينا
+              </button>
+              <button routerLink="/auth/signin" 
+                      class="btn btn-outline-light  my-2 my-sm-0 mx-1"
+                      routerLinkActive="active">
+                      <i  class="fa fa-sign-in ml-1" aria-hidden="true"></i>
+                      دخول
+              </button>
+            </li>
+          </ng-container>
+          <ng-template #logged>
+            <li class="nav-item dropdown logged-menue" ngbDropdown>
+              <a class="nav-link dropdown-toggle" 
+                id="navbarDropdown" role="button" data-toggle="dropdown" 
+                aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                <i class="fa fa-user-o"></i>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" ngbDropdownMenu >
+                <a ngbDropdownItem class="dropdown-item" routerLink="/my/account">
+                  <i class="fa fa-user-circle"></i>
+                  <span class="ml-1">حسابى</span>
+                </a>
+                <a ngbDropdownItem class="dropdown-item" routerLink="/my/profile">
+                  <i class="fa fa-address-book"></i>
+                  <span class="ml-1">عضويتى</span>
+                </a>
+                <a ngbDropdownItem class="dropdown-item last-item"
+                    (click)="logoutUser()">
+                    <i  class="fa fa-sign-in ml-1"></i>
+                    خروج
+               </a>
+              </div>
+            </li>
+          </ng-template>
+        </ul>
       </div>
     </div>
 </nav>

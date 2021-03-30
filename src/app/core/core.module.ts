@@ -11,33 +11,36 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../shared/helpers/Jwt.Interceptor';
 import { ErrorInterceptor } from '../shared/helpers/error-interceptor';
 import { CoreComponent } from './core.component';
-import { NgbCollapseModule, NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbDropdownModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesSectionComponent } from './home/services-section/services-section.component';
 import { LoaderService } from '../shared/services/loader-service.service';
 import { LoaderInterceptor } from '../shared/helpers/loader.interceptor';
-import { ToastComponent } from './toast/toast.component';
 import { ToastService } from '../shared/services/toast.service.';
 import { SharedModule } from '../shared/shared.module';
 import { AuthGuard } from '../shared/helpers/Guards/auth.guard';
 import { AlreadySignedGuard } from '../shared/helpers/Guards/already-signed.guard';
 import { DataStorageService } from '../shared/services/data-storage.service';
+import { ToastComponent } from './toast/toast.component';
+import { AccountGuard } from '../shared/helpers/Guards/account.guard';
 
 
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, HomeComponent, PageNotFoundComponent,
-     CoreComponent, ServicesSectionComponent, ToastComponent],
+     CoreComponent, ServicesSectionComponent,ToastComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     CoreRoutingModule,
     NgbDropdownModule,
     NgbCollapseModule,
+    NgbToastModule,
     SharedModule
   ],
   providers:[
     AuthService,
     AuthGuard,
+    AccountGuard,
     AlreadySignedGuard,
     UserService,
     LoaderService,
@@ -48,8 +51,7 @@ import { DataStorageService } from '../shared/services/data-storage.service';
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true}
   ],
   exports:[
-    CoreComponent,
-    ToastComponent
+    CoreComponent,ToastComponent
   ]
 })
 export class CoreModule { }

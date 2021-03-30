@@ -1,0 +1,33 @@
+<section id="profile">
+ <div class="wrapper mt-3 mb-4 p-3">
+     <div class="content pt-3 px-2 pb-4">
+        <h2 class="h2 text-primary text-center">صفحة العضوية</h2>
+        <div>
+            <div class="d-flex v-tabs">
+                <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills" orientation="vertical">
+                  <li ngbNavItem="top">
+                    <a ngbNavLink class="text-center">
+                        <i class="fa fa-user fa-lg d-block text-primary"></i>
+                        <span class="mt-2 text">اسم الخزن</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                      <p>lum iphone. Seitan aliquip quis tate nisi qui.</p>
+                    </ng-template>
+                  </li>
+                  <li ngbNavItem="middle">
+                    <a ngbNavLink class="text-center">
+                        <i class="fa fa-phone fa-lg d-block text-primary"></i>
+                        <span class="mt-2 text">بيانات التواصل</span>
+                    </a>
+                    <ng-template ngbNavContent>
+                      <p>ente accusamus tattooed echo park.</p>
+                    </ng-template>
+                  </li>
+                </ul>
+              
+                <div [ngbNavOutlet]="nav" class="ml-4"></div>
+              </div>
+        </div>
+     </div>
+ </div>
+</section>

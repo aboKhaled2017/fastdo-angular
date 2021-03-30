@@ -6,6 +6,18 @@
     .dropdown{
       cursor: pointer;
     }
+    .logged-menue{
+      .dropdown-menu{
+        left: 0;
+        right: inherit;
+        min-width: inherit;
+        padding-top: 1px;
+        padding-bottom: 0;
+        .dropdown-item{
+          padding: 2px 5px;
+        }
+      }
+    }
     a.nav-link{
       color:#fff;
       &:hover{
@@ -13,7 +25,7 @@
       }
     }
     .navbar-nav{
-      .nav-item{
+      .nav-item:not(.dropdown){
         opacity: .7;
         &.active{
           opacity: 1;

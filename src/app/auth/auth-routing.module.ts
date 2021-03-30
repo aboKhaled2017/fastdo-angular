@@ -4,6 +4,7 @@ import { SigninComponent } from './signin/signin.component';
 import { JoinComponent } from './join/join.component';
 import { JoinAsPhrmacyComponent } from './join/join-as-phrmacy/join-as-phrmacy.component';
 import { JoinAsStoreComponent } from './join/join-as-store/join-as-store.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const authRoutes: Routes = [
   {path:'',children:[
@@ -12,6 +13,7 @@ const authRoutes: Routes = [
       {path:'as-store',component:JoinAsStoreComponent,data:{type:'store'}}
     ]},
     { path: 'signin', component: SigninComponent},
+    {path:'forgot-password',component:ForgotPasswordComponent}
   ]},
 ];
 
