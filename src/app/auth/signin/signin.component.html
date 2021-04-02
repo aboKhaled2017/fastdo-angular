@@ -75,19 +75,11 @@
                         </a>
                     </div>
                     <div class="form-group text-center">
-                        <button class="btn btn-primary" 
-                                [disabled]="loading || form.invalid"
-                                type="submit">
-                            <span *ngIf="loading">
-                                <span  class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                <span>جارى التحميل...</span>
-                            </span>
-                            
-                            <span *ngIf="!loading">
-                                <i class="fa fa-send mr-2"></i>
-                                 <span>دخول الان</span>
-                            </span>
-                        </button>
+                        <app-loading-button [loading]="loading" 
+                                            type="submit"
+                                            text="دخول الان"
+                                            [valid]="form.valid">
+                        </app-loading-button>
                     </div>
                 </form>
                 <div class="noAccount text-center">

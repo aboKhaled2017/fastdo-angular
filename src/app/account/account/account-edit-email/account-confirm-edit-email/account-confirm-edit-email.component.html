@@ -55,18 +55,10 @@
                 </span>
             </div>
         </div>
-        <button class="btn btn-primary mt-1" 
-                [disabled]="loading || form.invalid"
-                type="submit">
-            <span *ngIf="loading">
-                <span  class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                <span>جارى التحميل...</span>
-            </span>
-            
-            <span *ngIf="!loading">
-                <i class="fa fa-send mr-2"></i>
-                    <span>ارسال</span>
-            </span>
-        </button>
+        <app-loading-button [loading]="loading" 
+                    type="submit"
+                    extra="mt-1"
+                    [valid]="form.valid">
+        </app-loading-button>
     </form>
 </div>

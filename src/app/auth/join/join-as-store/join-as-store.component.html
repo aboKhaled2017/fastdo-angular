@@ -22,41 +22,33 @@
                  
                   <div>
                       <div class="buttons form-group d-flex flex-row justify-content-center align-items-center">
-                          <button *ngIf="currentStep==3" class="btn btn-primary" 
-                                  (click)="step4.onNext()"
-                                  [disabled]="loading || group(currentStep).invalid">
-                              <span *ngIf="loading">
-                                  <span  class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                  <span>جارى التحميل...</span>
-                              </span>
-                              
-                              <span *ngIf="!loading">
-                                  <i class="fa fa-send mr-2"></i>
-                                   <span>ارسال</span>
-                              </span>
-                          </button>
-                          <button *ngIf="(currentStep<3)" 
-                                  (click)="currentStep==0?step1.onNext():currentStep==1?step2.onNext():currentStep==2?step3.onNext():onNext()"
-                                  [disabled]="loading || group(currentStep).invalid"
-                                  type="button"
-                                  class="btn btn-info">
-                                      <span *ngIf="loading">
-                                          <span  class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                          <span>جارى التحميل...</span>
-                                      </span>
-                                      
-                                      <span *ngIf="!loading">
-                                          <i class="fa fa-arrow-right mr-2"></i>
-                                          <span>التالى</span>
-                                      </span>
-                          </button>
-                          <button *ngIf="(currentStep>0)"
-                                  (click)="onPrev()" 
-                                  type="button"
-                                  class="btn btn-danger">
-                              <i class="fa fa-arrow-left mr-2"></i>
-                              <span>السابق</span>
-                          </button>
+                          
+                        <ng-container *ngIf="currentStep==3">
+                            <app-loading-button [loading]="loading" 
+                                        type="button"
+                                        (clicked)="step4.onNext()"
+                                        [valid]="group(currentStep).valid">
+                            </app-loading-button>
+                        </ng-container> 
+                        <ng-container *ngIf="currentStep<3">
+                            <app-loading-button [loading]="loading" 
+                                        (clicked)="currentStep==0?step1.onNext():currentStep==1?step2.onNext():currentStep==2?step3.onNext():onNext()" 
+                                        type="button"
+                                        icon="fa-arrow-right"
+                                        text="التالى"
+                                        [valid]="group(currentStep).valid">
+                            </app-loading-button>
+                        </ng-container>
+                        <ng-container *ngIf="currentStep>0">
+                            <app-loading-button [loading]="false" 
+                                        (clicked)="onPrev()" 
+                                        type="button"
+                                        icon="fa-arrow-left"
+                                        text="السابق"
+                                        [valid]="true">
+                            </app-loading-button>
+                        </ng-container>
+
                       </div>
                   </div>
               </form>

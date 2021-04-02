@@ -72,20 +72,10 @@
                         </div>
                       </div>
                     <div class="form-group">
-                      
-                        <button class="btn btn-primary" 
-                                [disabled]="isLoading || form.invalid"
-                                type="submit">
-                            <span *ngIf="isLoading">
-                                <span  class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                <span>جارى التحميل...</span>
-                            </span>
-                            
-                            <span *ngIf="!isLoading">
-                                <i class="fa fa-send mr-2"></i>
-                                 <span>ارسال</span>
-                            </span>
-                        </button>
+                        <app-loading-button [loading]="isLoading" 
+                                            type="submit"
+                                            [valid]="form.valid">
+                        </app-loading-button>
                       </div>
                 </form>
             </div>

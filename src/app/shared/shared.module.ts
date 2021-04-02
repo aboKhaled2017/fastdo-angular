@@ -5,11 +5,12 @@ import { FormLiveStatusComponent } from './components/form-live-status/form-live
 import { VerticalTimelineComponent } from './components/vertical-timeline/vertical-timeline.component';
 import { TrackArabicTextDirective } from './directives/track-arabic-text.directive';
 import { InputValidatorDirective } from './directives/input-validator.directive';
+import { LoadingButtonComponent } from './components/buttons/loading-button/loading-button.component';
 
 
 
 @NgModule({
-  declarations: [FormLiveStatusComponent, VerticalTimelineComponent, TrackArabicTextDirective, InputValidatorDirective],
+  declarations: [FormLiveStatusComponent, VerticalTimelineComponent, TrackArabicTextDirective, InputValidatorDirective, LoadingButtonComponent],
   imports: [
     CommonModule
   ],
@@ -17,7 +18,8 @@ import { InputValidatorDirective } from './directives/input-validator.directive'
   exports:[
     FormLiveStatusComponent,
     VerticalTimelineComponent,
-    TrackArabicTextDirective
+    TrackArabicTextDirective,
+    LoadingButtonComponent
   ]
 })
 export class SharedModule { }
