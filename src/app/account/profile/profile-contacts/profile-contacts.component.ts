@@ -6,6 +6,7 @@ import { ToastService } from 'src/app/shared/services/toast.service.';
 import { ProfileComponent } from '../profile.component';
 import { ProfileService } from '../profile.service';
 import { IErrorModel } from '../../../shared/models/Error.model';
+import { CommonFormUtility } from '../../../shared/Utilities/form.utility';
 
 @Component({
   selector: 'app-profile-contacts',
@@ -15,9 +16,7 @@ import { IErrorModel } from '../../../shared/models/Error.model';
 export class ProfileContactsComponent extends ProfileComponent {
 
   fg:FormGroup;
-  errors={
-    
-  }
+  errors={}
   constructor(public profileService:ProfileService,
     public authService:AuthService,
     public loaderService:LoaderService,
@@ -30,16 +29,7 @@ export class ProfileContactsComponent extends ProfileComponent {
     })
   }
   setErrors(error){
-    for(let prop in error){
-      this.errors[prop]=error[prop];
-      let ctrl=this.fg.get(prop);
-      if(ctrl){
-        ctrl.markAsTouched();
-        ctrl.setErrors({
-          g:true
-        });
-      }
-    }
+    CommonFormUtility.setErrors(error,this.errors,this.fg);
   }
   get f(){
     return this.fg.controls;

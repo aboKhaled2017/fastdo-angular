@@ -24,14 +24,10 @@ export class AccountService {
   }
   updatePhone(model:IPhoneEditModel){
     return this.http.post(`${environment.apiUrl}/manage/phone`,model).pipe(tap(data=>{
-      alert(JSON.stringify(data))
       this.authService.updateUserData(data);
     }));
   }
   updatePassword(model:IPasswordEditModel){
-    return this.http.post(`${environment.apiUrl}/manage/password`,model).pipe(tap(data=>{
-      alert(JSON.stringify(data))
-      this.authService.updateUserData(data);
-    }));
+    return this.http.post(`${environment.apiUrl}/manage/password`,model);
   }
 }

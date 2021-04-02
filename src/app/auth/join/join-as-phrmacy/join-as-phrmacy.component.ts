@@ -8,6 +8,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JoinAsPharmacyService } from './join-as-pharmacy.service';
 import { UserType } from 'src/app/shared/models/ILogin';
+import { Constants } from 'src/app/shared/constnts';
 
 @Component({
   selector: 'app-join-as-phrmacy',
@@ -46,7 +47,7 @@ export class JoinAsPhrmacyComponent implements OnInit {
   }
   private getFormContactGroup(){
     return this.fb.group({
-      persPhone:this.fb.control('',[Validators.required,Validators.pattern(/^01(1|2|5|0|7)\d{8,8}$/)]),
+      persPhone:this.fb.control('',[Validators.required,Validators.pattern(Constants.phoneRegexPattern)]),
       linePhone:this.fb.control('',[Validators.required,Validators.pattern(/^\d{4,15}$/)]),
       address:this.fb.control('')
    });

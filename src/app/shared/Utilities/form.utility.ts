@@ -1,7 +1,8 @@
 export class CommonFormUtility {
    public static setErrors(error,errorsObj,form,gErrorProp='g'){
         for(let prop in error){
-          errorsObj[prop]=error[prop];
+          let val=error[prop];
+          errorsObj[prop]=(typeof(val)=="string")?[val]:val;
           let ctrl=form.get(prop);
           if(ctrl){
             ctrl.markAsTouched();
@@ -10,5 +11,5 @@ export class CommonFormUtility {
             });
           }
         }
-    }
+   }
 }
