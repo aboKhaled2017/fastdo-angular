@@ -3,6 +3,8 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { LoaderService } from '../shared/services/loader-service.service';
 import { ContactUsService } from './contact-us.service';
 import { ToastService } from '../shared/services/toast.service.';
+import { CommonFormUtility } from '../shared/Utilities/form.utility';
+import { IErrorModel } from '../shared/models/Error.model';
 
 @Component({
   selector: 'app-contact-us',
@@ -39,14 +41,7 @@ export class ContactUsComponent implements OnInit {
   }
   
   setErrors(error){
-    for(let prop in error){
-      this.errors[prop]=error[prop];
-      let ctrl=this.form.get(prop);
-      ctrl.markAsTouched();
-      ctrl.setErrors({
-        other:true
-      });
-    }
+    CommonFormUtility.setErrors(error,this.errors,this.form);
   }
   onSubmit(){
     if(this.form.invalid)return;
@@ -55,7 +50,9 @@ export class ContactUsComponent implements OnInit {
         this.toastService.showInfo('تم ابلاغ رسالتك بنجاح', {
           autohide: false,
         });
-    },error=>this.setErrors(error));
+    },(err:IErrorModel)=>{
+      if(err.hasValidationError)this.setErrors(err.error);
+    });
   }
   setTestData(){
     this.form.setValue({

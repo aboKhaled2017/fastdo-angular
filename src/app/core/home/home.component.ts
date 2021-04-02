@@ -8,11 +8,15 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class HomeComponent  {
   isLogged=false;
+  entityName:string;
  constructor(private authService:AuthService){}
 
  ngOnInit(): void {
    this.authService.currentUser.subscribe(val=>{
-     if(!!val)this.isLogged=true;
+     if(!!val){
+      this.isLogged=true;
+      this.entityName=val.name;
+     }
      else this.isLogged=false;
    })
  }

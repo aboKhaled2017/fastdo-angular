@@ -1,9 +1,15 @@
 <section id="homeSection">
     <div class="top-section container-fluid pb-4">
         <div class="ml-3 mb-4">
-            <h2>مرحبا بك مع فاست دو</h2>
-            <h2>انضم الى فاست دو واستخدم كل خدماتها</h2>
-            <h6>يسعدنا ان تسجل لدى موقعنا وتنضم الينا</h6>
+            <h2 *ngIf="!isLogged">مرحبا بك مع فاست دو</h2>
+            <h2 *ngIf="isLogged">مرحبا بك {{entityName}} فى فاست دو</h2>
+            <ng-container *ngIf="!isLogged;else userWelcom">
+                <h2>انضم الى فاست دو واستخدم كل خدماتها</h2>
+                <h6>يسعدنا ان تسجل لدى موقعنا وتنضم الينا</h6>
+            </ng-container>
+            <ng-template #userWelcom>
+                <h6>نقدم لك واحدة من افضل خدمات الادوية على الاطلاق</h6>
+            </ng-template>
         </div>
         <div *ngIf="!isLogged" class="row text-center">
             <div class="col-sm-6 col-xs-12">

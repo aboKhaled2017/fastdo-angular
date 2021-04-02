@@ -1,32 +1,21 @@
-@import '../../scss/variables';
-#profile{
-    .wrapper{
-        .content{
-            background: #eee;
-            ul.nav-pills{
-               li{
-                   .nav-link{
-                       border-radius: 0;
-                     &.active{
-                         background: transparent;
-                         border-left: 4px solid $primary;
-                         .text{
-                            color:#222;
-                            opacity: 1;
-                         }
-                     }
-                     .text{
-                         opacity: .6;
-                         color:#777
-                     }
-                   }
-               }
-               border-left: 4px solid #dee2e6;
+@import './../../scss/variables';
+ul.nav-pills{
+    li{
+        .nav-link{
+            border-radius: 0;
+            &.active{
+                background: transparent;
+                border-left: 4px solid $primary;
+                .text{
+                color:#222;
+                opacity: 1;
+                }
             }
-            .tab-content{
-               margin: 0 !important;
-                padding-right: 8px;
+            .text{
+                opacity: .6;
+                color:#777
             }
         }
     }
+    border-left: 4px solid #dee2e6;
 }

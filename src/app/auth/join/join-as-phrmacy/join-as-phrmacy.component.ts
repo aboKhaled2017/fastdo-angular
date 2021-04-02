@@ -120,7 +120,6 @@ export class JoinAsPhrmacyComponent implements OnInit {
                 }, 3000);                
             },
             error => {
-                alert(JSON.stringify(error))
                 this.setErrors(error);
             });
   }

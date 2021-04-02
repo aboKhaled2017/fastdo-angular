@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <p class="fa-md text-secondary">
+                <span *ngIf="isPharmacy">معلومات اساسية عن الصيدلية ومديرها</span>
+                <span *ngIf="!isPharmacy">معلومات اساسية عن المخزن ومديريه</span>
+            </p>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <div id="from">
+                <div class="form-group">
+                    <input [formControl]="nameControl" 
+                           type="text"
+                           [ngClass]="{'border-danger':nameControl.touched && nameControl.invalid}" 
+                           class="form-control">
+                    <div class="text-danger" *ngIf="nameControl.touched && nameControl.invalid">
+                        <span *ngIf="nameControl.errors.required">
+                             الاسم مطلوب
+                        </span>
+                        <span *ngIf="nameControl.errors.g">
+                            {{nameErrorMessage[0]}}
+                        </span>                                     
+                    </div>                  
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary mt-1" 
+                            [disabled]="isLoading || nameControl.invalid"
+                            (click)="submit()"
+                            type="button">
+                        <span *ngIf="isLoading">
+                            <span  class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            <span>جارى التحميل...</span>
+                        </span>
+                        
+                        <span *ngIf="!isLoading">
+                            <i class="fa fa-send mr-2"></i>
+                                <span>ارسال</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

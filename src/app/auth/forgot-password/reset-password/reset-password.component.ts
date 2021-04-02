@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ResetPasswordService } from '../reset-password.service';
 import { ToastService } from '../../../shared/services/toast.service.';
+import { CommonFormUtility } from 'src/app/shared/Utilities/form.utility';
+import { IErrorModel } from '../../../shared/models/Error.model';
 
 @Component({
   selector: 'app-reset-password',
@@ -25,17 +27,8 @@ export class ResetPasswordComponent implements OnInit {
               private toastService: ToastService) { 
   }
   setErrors(error){
-    for(let prop in error){
-      this.errors[prop]=error[prop];
-      let ctrl=this.form.get(prop);
-      if(ctrl){
-        ctrl.markAsTouched();
-        ctrl.setErrors({
-          g:true
-        });
-      }
-    }
-}
+    CommonFormUtility.setErrors(error,this.errors,this.form);
+  }
   ngOnInit(): void {
     this.form=this.fb.group({
       newPassword:this.fb.control('',Validators.required),
@@ -58,9 +51,9 @@ export class ResetPasswordComponent implements OnInit {
       setTimeout(() => {
          this.router.navigate(['/auth/signin']);
       }, 3000);
-    },error=>{
+    },(err:IErrorModel)=>{
       this.loading=false;
-      this.setErrors(error);
+      if(err.hasValidationError)this.setErrors(err.error);
     });
   }
 }

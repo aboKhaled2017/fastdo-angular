@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthService } from '../../shared/services/auth.service';
 import { LoaderService } from '../../shared/services/loader-service.service';
+import { CommonFormUtility } from '../../shared/Utilities/form.utility';
+import { IErrorModel } from '../../shared/models/Error.model';
 
 
 @Component({
@@ -41,16 +43,7 @@ export class SigninComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
   setErrors(error){
-    for(let prop in error){
-      this.errors[prop]=error[prop];
-      let ctrl=this.form.get(prop);
-      if(ctrl){
-        ctrl.markAsTouched();
-      ctrl.setErrors({
-        g:true
-      });
-      }
-    }
+    CommonFormUtility.setErrors(error,this.errors,this.form);
   }
   onSubmit() {
     this.submitted = true;
@@ -61,8 +54,8 @@ export class SigninComponent implements OnInit {
             data => {
                 this.router.navigate([this.returnUrl]);
             },
-            error => {
-                this.setErrors(error);
+            (err:IErrorModel) => {
+               if(err.hasValidationError) this.setErrors(err.error);
             });
 }
 }

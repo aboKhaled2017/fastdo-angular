@@ -30,10 +30,7 @@ export class AuthService {
           .pipe(map(data => {
               // login successful if there's a jwt token in the response
               if (data && data.accessToken) {
-                  // store user details and jwt token in local storage to keep user logged in between page refreshes
-                  localStorage.setItem(this.currentUserName, JSON.stringify(data.user));
-                  localStorage.setItem(this.tokenName, JSON.stringify(data.accessToken.token));
-                  this.currentUserSubject.next(UserFactory.createUser(data.user));
+                this.storeUserDataAndCredentials(data);
               }
 
               return data;
@@ -46,9 +43,7 @@ export class AuthService {
             // login successful if there's a jwt token in the response
             if (data && data.accessToken) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem(this.currentUserName, JSON.stringify(data.user));
-                localStorage.setItem(this.tokenName, JSON.stringify(data.accessToken.token));
-                this.currentUserSubject.next(UserFactory.createUser(data.user));
+                this.storeUserDataAndCredentials(data);
             }
 
             return data;
@@ -65,8 +60,15 @@ export class AuthService {
   isAuthenticated():boolean{
    return !!this.currentUserValue && !!this.token;
   }
-
+  updateUserData(data){
+    this.storeUserDataAndCredentials(data);
+  }
   public get token(){
     return localStorage.getItem(this.tokenName);
+  }
+  private storeUserDataAndCredentials(data){
+    localStorage.setItem(this.currentUserName, JSON.stringify(data.user));
+    localStorage.setItem(this.tokenName,data.accessToken.token);
+    this.currentUserSubject.next(UserFactory.createUser(data.user));
   }
 }

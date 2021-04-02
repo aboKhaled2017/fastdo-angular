@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <p class="fa-md text-secondary">
+                <span *ngIf="isPharmacy">بيانات التواصل خاصة الصيدلية</span>
+                <span *ngIf="!isPharmacy">بيانات التواصل خاصة المخزن</span>
+            </p>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <form (ngSubmit)="submit()" [formGroup]="fg">
+                <div class="form-group">
+                    <input type="tel" class="form-control" 
+                            placeholder="رقم التليفون الارضى"
+                            formControlName="landlinePhone"
+                            [ngClass]="{'border-danger':f.landlinePhone.touched && f.landlinePhone.invalid}">
+                            
+                    <div class="text-danger" *ngIf="f.landlinePhone.touched && f.landlinePhone.invalid">
+                    <span *ngIf="f.landlinePhone.errors.required">
+                        رقم التليفون الارضى مطلوب
+                    </span>
+                    <span *ngIf="f.landlinePhone.errors.pattern">
+                        رقم التليفون الارضى غير صحيح
+                    </span>
+                    <span *ngIf="f.landlinePhone.errors?.g">
+                        {{errors.landlinePhone[0]}}
+                    </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" 
+                            placeholder="عنوان الصيدلية بالتفصيل"
+                            formControlName="address"
+                            [ngClass]="{'border-danger':f.address.touched && f.address.invalid}">
+                
+                    <div class="text-danger" *ngIf="f.address.touched && f.address.invalid">
+                        <span *ngIf="f.address.errors?.g">
+                            {{errors.address[0]}}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary mt-1" 
+                            [disabled]="isLoading || fg.invalid"
+                            type="submit">
+                        <span *ngIf="isLoading">
+                            <span  class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            <span>جارى التحميل...</span>
+                        </span>
+                        
+                        <span *ngIf="!isLoading">
+                            <i class="fa fa-send mr-2"></i>
+                                <span>ارسال</span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

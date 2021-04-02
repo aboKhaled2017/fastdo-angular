@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ResetPasswordService } from './reset-password.service';
+import { IErrorModel } from '../../shared/models/Error.model';
 
 @Component({
   selector: 'app-forgot-password',
@@ -26,11 +27,11 @@ export class ForgotPasswordComponent implements OnInit {
     .subscribe(()=>{
       this.emailValidated=true;
       this.isLoading=false;
-    },error=>{
+    },(err:IErrorModel)=>{
       this.emailValidated=false;
       this.isLoading=false;
-     if(error?.email){
-      this.emailErrorMessage=error.email;
+     if(err.hasValidationError && err.error?.email){
+      this.emailErrorMessage=err.error.email;
       this.emailControl.markAsTouched();
       this.emailControl.setErrors({g:true});
      }

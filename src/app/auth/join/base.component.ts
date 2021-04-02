@@ -1,6 +1,8 @@
 import { Component, Input } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { JoinService } from "./join.service";
+import { CommonFormUtility } from '../../shared/Utilities/form.utility';
+import { IErrorModel, ErrorModel } from '../../shared/models/Error.model';
 
 @Component({
     template:''
@@ -10,17 +12,10 @@ export class BaseJoinComponent{
     @Input('step') currentStep:number;
     errors:{}
     constructor(public joinService:JoinService){}
-    setErrors(error){
-        for(let prop in error){
-          this.errors[prop]=error[prop];
-          let ctrl=this.fg.get(prop);
-          if(ctrl){
-            ctrl.markAsTouched();
-            ctrl.setErrors({
-              g:true
-            });
-          }
-        }
+    setErrors(err:IErrorModel|any){
+      if(err instanceof ErrorModel && err.hasValidationError)
+        CommonFormUtility.setErrors(err.error,this.errors,this.fg);
+      else  CommonFormUtility.setErrors(err,this.errors,this.fg);
     }
     ngOnInit(): void {
         this.joinService.onSummaryErrorSubmitted.subscribe(error=>{
