@@ -13,11 +13,12 @@ import { AccountEditEmailComponent } from './account/account-edit-email/account-
 import { AccountEditPhoneComponent } from './account/account-edit-phone/account-edit-phone.component';
 import { AccountEditPasswordComponent } from './account/account-edit-password/account-edit-password.component';
 import { AccountConfirmEditEmailComponent } from './account/account-edit-email/account-confirm-edit-email/account-confirm-edit-email.component';
+import { AccountConfirmEmailComponent } from './account/account-confirm-email/account-confirm-email.component';
 
 
 
 @NgModule({
-  declarations: [ProfileComponent,AccountComponent, ProfileBasicInfoComponent, ProfileContactsComponent,BaseAccountComponent, AccountEditEmailComponent, AccountEditPhoneComponent, AccountEditPasswordComponent, AccountConfirmEditEmailComponent],
+  declarations: [ProfileComponent,AccountComponent, ProfileBasicInfoComponent, ProfileContactsComponent,BaseAccountComponent, AccountEditEmailComponent, AccountEditPhoneComponent, AccountEditPasswordComponent, AccountConfirmEditEmailComponent, AccountConfirmEmailComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -27,4 +28,6 @@ import { AccountConfirmEditEmailComponent } from './account/account-edit-email/a
   ],
   schemas:[NO_ERRORS_SCHEMA]
 })
-export class AccountModule { }
+export class AccountModule { 
+  
+}

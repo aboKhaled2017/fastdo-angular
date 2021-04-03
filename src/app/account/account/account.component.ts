@@ -13,17 +13,26 @@ import { ToastService } from 'src/app/shared/services/toast.service.';
   providers:[AccountService]
 })
 export class AccountComponent extends BaseAccountComponent {
-
+  isEmailConfirmed:boolean;
   constructor(public accountService:AccountService,
               public authService:AuthService,
               public loaderService:LoaderService,
               public toastService:ToastService) { 
-super(authService,loaderService,toastService);
-this.currentUser=this.authService.currentUserValue;
-this.loaderService.isLoading.subscribe(v=>this.isLoading=v);
-this.isPharmacy=this.currentUser.role==Role.pharmacy;
-}
-ngOnInit(): void {
-}
+                  super(authService,loaderService,toastService);
+                  this.currentUser=this.authService.currentUserValue;
+                  this.loaderService.isLoading.subscribe(v=>this.isLoading=v);
+                  this.isPharmacy=this.currentUser.role==Role.pharmacy;
+                  this.checkRouteState();
+
+  }
+  ngOnInit(): void {
+     this.isEmailConfirmed=this.currentUser.emailConfirmed;
+  }
+  private checkRouteState(){
+    let state=window.history.state;
+    if(state && state.type=='activate' && !this.currentUser.emailConfirmed){
+      this.active="activateEmail";
+    }
+  }
 
 }

@@ -16,7 +16,8 @@ export class LoaderInterceptor implements HttpInterceptor{
            this.loaderService.isBackgroundLoading.next(true);
         }
         else{
-          this.loaderService.isLoading.next(true);
+          if(this.loaderService.skipNextRequest) this.loaderService.skipNextRequest=false;
+          else this.loaderService.isLoading.next(true);
         }
       
         // We create a new observable which we return instead of the original

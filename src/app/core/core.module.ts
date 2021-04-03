@@ -22,12 +22,13 @@ import { AlreadySignedGuard } from '../shared/helpers/Guards/already-signed.guar
 import { DataStorageService } from '../shared/services/data-storage.service';
 import { ToastComponent } from './toast/toast.component';
 import { AccountGuard } from '../shared/helpers/Guards/account.guard';
+import { ActivateEmailComponent } from '../shared/components/activate-email/activate-email.component';
 
 
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, HomeComponent, PageNotFoundComponent,
-     CoreComponent, ServicesSectionComponent,ToastComponent],
+     CoreComponent, ServicesSectionComponent,ToastComponent,ActivateEmailComponent],
   imports: [
     CommonModule,
     HttpClientModule,

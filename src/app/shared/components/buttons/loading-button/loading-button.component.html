@@ -20,12 +20,12 @@
     </button>
 </ng-template>
 <ng-template #link>
-    <a [class]="class" 
+    <btn [class]="class" 
         [disabled]="isLoading || !isValid"
         (click)="onClick()">
         <ng-container *ngTemplateOutlet="spinner"></ng-container>
-        <ng-container *ngTemplateOutlet="btntext"></ng-container>
-    </a>
+        <span>{{text}}</span>
+    </btn>
 </ng-template>
 
 <ng-container *ngIf="type=='link'; then link else btn">

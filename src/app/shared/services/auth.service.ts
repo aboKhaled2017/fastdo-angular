@@ -56,18 +56,26 @@ export class AuthService {
       this.currentUserSubject.next(null);
       this.router.navigate(['/']);
   }
-  
+  setUserEmailActivated() {
+    let user=this.currentUserValue;
+    user.emailConfirmed=true;
+    this.setUserData(user);
+  }
   isAuthenticated():boolean{
    return !!this.currentUserValue && !!this.token;
   }
   updateUserData(data){
     this.storeUserDataAndCredentials(data);
   }
+  private setUserData(user:User){
+    localStorage.setItem(this.currentUserName, JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
   public get token(){
     return localStorage.getItem(this.tokenName);
   }
   private storeUserDataAndCredentials(data){
-    localStorage.setItem(this.currentUserName, JSON.stringify(data.user));
+    this.setUserData(data.user);
     localStorage.setItem(this.tokenName,data.accessToken.token);
     this.currentUserSubject.next(UserFactory.createUser(data.user));
   }

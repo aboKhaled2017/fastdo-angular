@@ -10,7 +10,8 @@ export class CommonUtilityService {
   convertObjPropsToCamleCseString(obj){
    const newObj={};
    for(let prop in obj){
-   newObj[this.convertStrToCamleCseString(prop)]=obj[prop];
+    let val=obj[prop];
+    newObj[this.convertStrToCamleCseString(prop)]=(typeof(val)=="string")?[val]:val;
    }
    return newObj;
   }

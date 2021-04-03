@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { IEmailEditModel } from '../models/IEmailEdit.model';
 import { IPhoneEditModel } from '../models/IPhoneEdit.model';
 import { IPasswordEditModel } from '../models/IPasswordEdit.model';
+import { IActivateEmailModel } from '../models/IActivateEmail.model';
 
 @Injectable()
 export class AccountService {
@@ -16,6 +17,9 @@ export class AccountService {
   }
   sendCodeToMailAgain(newEmail:string){
     return this.http.get(`${environment.apiUrl}/manage/sendCodeToMailAgain?newEmail=${newEmail}`);
+  }
+  sendEmailConfirmCodeToMailAgain(email:string){
+    return this.http.get(`${environment.apiUrl}/auth/SendMeEmailConfirmCodeAgain?email=${email}`);
   }
   updateEmailWithCode(model:IEmailEditModel){
     return this.http.post(`${environment.apiUrl}/manage/email`,model).pipe(tap(data=>{
@@ -29,5 +33,10 @@ export class AccountService {
   }
   updatePassword(model:IPasswordEditModel){
     return this.http.post(`${environment.apiUrl}/manage/password`,model);
+  }
+  activateEmail(model:IActivateEmailModel){
+    return this.http.post(`${environment.apiUrl}/auth/confirmemail`,model).pipe(tap(data=>{
+      this.authService.setUserEmailActivated();
+    }));
   }
 }

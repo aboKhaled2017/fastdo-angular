@@ -10,7 +10,8 @@ import { LoadingButtonComponent } from './components/buttons/loading-button/load
 
 
 @NgModule({
-  declarations: [FormLiveStatusComponent, VerticalTimelineComponent, TrackArabicTextDirective, InputValidatorDirective, LoadingButtonComponent],
+  declarations: [FormLiveStatusComponent, VerticalTimelineComponent, 
+    TrackArabicTextDirective, InputValidatorDirective, LoadingButtonComponent],
   imports: [
     CommonModule
   ],
