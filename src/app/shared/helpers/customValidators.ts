@@ -11,6 +11,14 @@ export class CustomValidators{
             return null;
         }
     }
+    static intNumber(control: AbstractControl){
+        if(control.value && !Number.isInteger(parseFloat(control.value))){
+            return {
+                notNumber:true
+            }
+        }
+        return null;
+    }
     static matchToValue(target: any){
         return (control:AbstractControl):ValidationErrors=>{
             if(control.value && control.value!=target){

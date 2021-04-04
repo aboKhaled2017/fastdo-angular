@@ -6,21 +6,34 @@ import { VerticalTimelineComponent } from './components/vertical-timeline/vertic
 import { TrackArabicTextDirective } from './directives/track-arabic-text.directive';
 import { InputValidatorDirective } from './directives/input-validator.directive';
 import { LoadingButtonComponent } from './components/buttons/loading-button/loading-button.component';
+import { HTabeComponent } from './components/h-tabe/h-tabe.component';
+import { RouterModule } from '@angular/router';
+import { InputWithValidationComponent } from './components/input-with-validation/input-with-validation.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CustomSelectInputComponent } from './components/custom-select-input/custom-select-input.component';
+import { NgbDatepickerI18n, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { CustomDatepickerI18n, I18n } from './services/datepicker.service';
 
 
 
 @NgModule({
   declarations: [FormLiveStatusComponent, VerticalTimelineComponent, 
-    TrackArabicTextDirective, InputValidatorDirective, LoadingButtonComponent],
+    TrackArabicTextDirective, InputValidatorDirective, LoadingButtonComponent, 
+    HTabeComponent, InputWithValidationComponent, CustomSelectInputComponent],
   imports: [
-    CommonModule
+    CommonModule,RouterModule,
+    ReactiveFormsModule,
+    NgbDatepickerModule
   ],
-  providers:[CommonUtilityService],
+  providers:[CommonUtilityService,I18n, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}],
   exports:[
     FormLiveStatusComponent,
     VerticalTimelineComponent,
     TrackArabicTextDirective,
-    LoadingButtonComponent
+    LoadingButtonComponent,
+    HTabeComponent,
+    InputWithValidationComponent,
+    CustomSelectInputComponent
   ]
 })
 export class SharedModule { }

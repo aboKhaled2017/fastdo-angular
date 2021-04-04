@@ -9,6 +9,7 @@ export class TrackArabicTextDirective {
   @Input('appTrackArabicTextFromStart') trackFromStart:boolean;
   constructor(private elRef:ElementRef<HTMLInputElement>,private renderer:Renderer2) {}
   ngOnInit(): void {
+    if(!this.control)return;
     if(this.trackFromStart){
       this.renderer.addClass(this.elRef.nativeElement,"notArabicFont");
     }

@@ -5,6 +5,14 @@
     padding: 0.3rem 1rem !important;
     .dropdown{
       cursor: pointer;
+      &.active{
+        a.nav-link{
+          opacity: 1;
+        }
+      }
+      a.nav-link{
+        opacity: .7;
+      }
     }
     .logged-menue{
       .dropdown-menu{
