@@ -11,7 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../shared/helpers/Jwt.Interceptor';
 import { ErrorInterceptor } from '../shared/helpers/error-interceptor';
 import { CoreComponent } from './core.component';
-import { NgbCollapseModule, NgbDropdownModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbDropdownModule, NgbPaginationModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesSectionComponent } from './home/services-section/services-section.component';
 import { LoaderService } from '../shared/services/loader-service.service';
 import { LoaderInterceptor } from '../shared/helpers/loader.interceptor';
@@ -23,6 +23,9 @@ import { DataStorageService } from '../shared/services/data-storage.service';
 import { ToastComponent } from './toast/toast.component';
 import { AccountGuard } from '../shared/helpers/Guards/account.guard';
 import { ActivateEmailComponent } from '../shared/components/activate-email/activate-email.component';
+import { PaginatorService } from '../shared/services/paginator.service';
+import { PaginatorInterceptor } from '../shared/helpers/paginator.Interceptor';
+import { ComponentOnDeactivate } from '../shared/helpers/component.canDeActivate';
 
 
 
@@ -45,11 +48,14 @@ import { ActivateEmailComponent } from '../shared/components/activate-email/acti
     AlreadySignedGuard,
     UserService,
     LoaderService,
+    PaginatorService,
     ToastService,
     DataStorageService,
+    ComponentOnDeactivate,
     {provide:HTTP_INTERCEPTORS,useClass:LoaderInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true},
-    {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:PaginatorInterceptor,multi:true}
   ],
   exports:[
     CoreComponent,ToastComponent

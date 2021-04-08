@@ -1,5 +1,10 @@
 <ng-template #form>
     <form (ngSubmit)="submit()" [formGroup]="fg">
+        <ng-container *ngIf="editMode">
+            <input type="hidden" formControlName="id">
+            <input type="hidden" formControlName="oldName">
+        </ng-container>
+        
         <app-input-with-validation [control]="f.name" 
                         placeholder="الاسم"
                         [errors]="allErrors.name">               
@@ -70,6 +75,16 @@
 
 <section id="create">
     <div class="container-fluid">
+        <h5 class="text-center text-primary">
+            <span *ngIf="!isEditMode">اضافة راكد</span>
+            <span *ngIf="isEditMode">
+                <span>تعديل الراكد </span>
+                <span class="badge badge-info">{{f.name.value}}</span>
+            </span>
+        </h5>
+        <div class="row my-2" *ngIf="isEditMode">
+            <button class="btn btn-danger px-3 py-1" (click)="cancelEdit()">ألغاء التعديل</button>
+        </div>
         <div class="row">
             <div class="col-12  col-md-8  col-lg-6">
                <ng-container *ngTemplateOutlet="form"></ng-container>

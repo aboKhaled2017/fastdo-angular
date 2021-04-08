@@ -6,6 +6,7 @@ import { DrugsSearchComponent } from './drugs-search/drugs-search.component';
 import { MyStoresComponent } from './my-stores/my-stores.component';
 import { DrugsRequestsComponent } from './drugs-requests/drugs-requests.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -16,7 +17,8 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     PharmacyRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,  
+    NgbPaginationModule,
   ]
 })
 export class PharmacyModule { }

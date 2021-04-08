@@ -7,6 +7,13 @@ import { CustomValidators } from '../../../shared/helpers/customValidators';
 import { DrugCreateService } from './drug-create.service';
 import { ToastService } from '../../../shared/services/toast.service.';
 import { IErrorModel } from '../../../shared/models/Error.model';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { DrugsService } from '../drugs.service';
+import { delay, first, tap} from 'rxjs/operators';
+import { Observable, of, Subscription } from 'rxjs';
+import { BasicUtility } from 'src/app/shared/Utilities/basic.utility';
+import { OnDeactivate } from '../../../shared/helpers/component.canDeActivate';
+import { ModalPopupservice } from 'src/app/shared/services/modal.popup.service';
 
 @Component({
   selector: 'app-drugs-create',
@@ -14,7 +21,7 @@ import { IErrorModel } from '../../../shared/models/Error.model';
   styleUrls: ['./drugs-create.component.scss'],
   providers:[DrugCreateService]
 })
-export class DrugsCreateComponent implements OnInit {
+export class DrugsCreateComponent implements OnDeactivate {
   fg:FormGroup;
   allErrors={
     name:{required:'اسم الراكد مطلوب',g:''},
@@ -28,11 +35,14 @@ export class DrugsCreateComponent implements OnInit {
     discount:{required:'نسبة خصم الراكد مطلوب',g:''},
     desc:{required:'وصف الراكد مطلوب',g:''},
   }
+  formChangesSubscription:Subscription=new Subscription();
   drugsTypes=Constants.lists.drugsTypes;
   drugsUnitTypes=Constants.lists.drugsUnits;
   drugsPriceTypes=Constants.lists.drugsPriceTypes;
   drugsConsumeTypes=Constants.lists.drugsConsumeTypes;
   liveText="";
+  isEditMode=false;
+  isAnyChanges=false;
   private initForm(){
      this.fg=this.fb.group({
       name:this.fb.control('',[Validators.required]),
@@ -56,15 +66,27 @@ export class DrugsCreateComponent implements OnInit {
   constructor(private fb:FormBuilder,
               public loaderService:LoaderService,
               private toastService:ToastService,
-              private drugCreateService:DrugCreateService) {
+              private drugCreateService:DrugCreateService,
+              private drugsService:DrugsService,
+              private route:ActivatedRoute,
+              private router:Router,
+              private modalService:ModalPopupservice) {
     this.initForm();
     this.liveText=drugCreateService.get_liveState_for_addDrug({});
     this.fg.valueChanges.subscribe(val=>{
       this.liveText=drugCreateService.get_liveState_for_addDrug(val);
     });
+    
+    of(true).pipe(delay(0)).subscribe(()=>{
+      this.trackRouting();
+    });
   }
 
-  ngOnInit(): void {
+  cancelEdit(){
+   this.router.navigate(['../'],{relativeTo:this.route})
+  }
+  ngOnInit(): void {window['ischange']=this.isAnyChanges;
+  
   }
   get f(){
     return this.fg.controls;
@@ -83,10 +105,18 @@ export class DrugsCreateComponent implements OnInit {
     let _date=_value['valideDate'] as Date;
     _date=new Date(_date['year'],_date['month']-1,_date['day']);
     _value['valideDate']=_date.toISOString();
-    this.drugCreateService.addDrug(_value)
+    (this.isEditMode
+        ?this.drugCreateService.updateDrug(_value)
+        :this.drugCreateService.addDrug(_value))
     .subscribe(()=>{
-      this.resetForm();
-      this.toastService.showSuccess("تم اضافة الراكد بنجاح");
+      if(this.isEditMode){
+        this.toastService.showInfo("تم تعديل الراكد بنجاح");
+      }
+      else{
+        this.resetForm();
+        this.toastService.showSuccess("تم اضافة الراكد بنجاح");
+      }
+      this.isAnyChanges=false;
     },
     (err:IErrorModel)=>{
       if(err.hasValidationError){
@@ -99,4 +129,56 @@ export class DrugsCreateComponent implements OnInit {
       }
     });
   }
+  trackRouting() {
+    let id=this.route.snapshot.paramMap.get('id');
+    if(id){
+      this.isEditMode=true;
+      this.drugsService.updateTabe.next({id:1,props:{text:'تعديل راكد',iconClass:"fa-edit"}})
+      this.drugsService.getDrugById(id).subscribe(drug=>{
+        this.fg.addControl('id',this.fb.control(id,[Validators.required]));
+        this.fg.addControl('oldName',this.fb.control(drug.name,[Validators.required]));
+        this.fg.patchValue({...drug,valideDate:BasicUtility.getDatePickerObjectValue(drug.valideDate)});
+      },err=>{
+        this.router.navigate(['']);
+      }); 
+    }
+    else{
+      this.drugsService.updateTabe.next({id:1,props:{text:'اضافة راكد',iconClass:"fa-plus-circle"}})
+    }
+    this.formChangesSubscription.add(
+      this.formChangesSubscription=this.fg.valueChanges
+       .pipe(first())
+      .subscribe(()=>{
+      this.isAnyChanges=true;
+    }));
+  }
+  ngAfterViewInit(): void {
+    
+  }
+  private resetTab(){
+    this.drugsService.updateTabe.next({id:1,props:{text:'اضافة راكد',iconClass:"fa-plus-circle"}})
+  }
+  ngOnDeactivate(currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot, 
+    nextState?: RouterStateSnapshot):boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree>
+  {
+    let away=()=>{
+      if(this.isEditMode)this.resetTab();
+    }
+    return this.isAnyChanges
+    ?new Observable(ob=>{
+      this.modalService.openDeleteModal({message:"هل تريد اهمال التغرات الموجود"})
+      .result.then(()=>{
+         away();
+         ob.next(true);
+      },()=>{
+         ob.next(false);
+      })
+    })
+    :of(true).pipe(tap(()=>away()));
+  }
+  ngOnDestroy(): void {
+    this.formChangesSubscription.unsubscribe();
+  }
 }
+

@@ -8,17 +8,24 @@ import { DrugsShowListComponent } from './drugs-show-list/drugs-show-list.compon
 import { DrugsComponent } from './drugs.component';
 import { DrugsRoutingModule } from './drugs-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DrugsService } from './drugs.service';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { DrugItemDetailsComponent } from './drugs-show-list/drug-item-details/drug-item-details.component';
+import { DrugTableDetailsComponent } from './drugs-show-list/drug-item-details/drug-table-details/drug-table-details.component';
+import { DrugToPackageComponent } from './drugs-show-list/drug-item-details/drug-to-package/drug-to-package.component';
+import { DrugPackageStatusComponent } from './drugs-show-list/drug-item-details/drug-package-status/drug-package-status.component';
 
 
 
 @NgModule({
   declarations: [DrugsComponent, DrugsCreateComponent, 
-    DrugsShowListComponent, DrugsListWeRequestedComponent, DrugsReqsListWeRecievedComponent],
+    DrugsShowListComponent, DrugsListWeRequestedComponent, DrugsReqsListWeRecievedComponent, DrugItemDetailsComponent, DrugTableDetailsComponent, DrugToPackageComponent, DrugPackageStatusComponent],
   imports: [
     CommonModule,
     DrugsRoutingModule,
     SharedModule,
     ReactiveFormsModule
-  ]
+  ],
+  providers:[DrugsService]
 })
 export class DrugsModule { }
