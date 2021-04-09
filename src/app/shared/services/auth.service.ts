@@ -54,7 +54,7 @@ export class AuthService {
       localStorage.removeItem(this.currentUserName);
       localStorage.removeItem(this.tokenName);
       this.currentUserSubject.next(null);
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).then(()=>location.reload());
   }
   setUserEmailActivated() {
     let user=this.currentUserValue;

@@ -12,13 +12,15 @@ import { first } from 'rxjs/operators';
 import { ToastService } from '../../../shared/services/toast.service.';
 import { IErrorModel } from '../../../shared/models/Error.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DrugsBaseComponent } from '../base.component';
+import { ActivatePageService } from 'src/app/shared/services/activatedPage.service';
 
 @Component({
   selector: 'app-drugs-show-list',
   templateUrl: './drugs-show-list.component.html',
   styleUrls: ['./drugs-show-list.component.scss']
 })
-export class DrugsShowListComponent{
+export class DrugsShowListComponent  extends DrugsBaseComponent {
 
   pg:IGeneralPagination;
   datalist:IDrugModel[]=[];
@@ -41,8 +43,10 @@ export class DrugsShowListComponent{
               public loaderService:LoaderService,
               private modalService:NgbModal,
               private toastService:ToastService,
-              private router:Router,
+              public router:Router,
+              public activepageService: ActivatePageService,
               private route:ActivatedRoute) {
+                super(activepageService,router);
       loaderService.isLoading.subscribe(e=>this.loading=e);
       this.paginatorService.paginator.subscribe(_pg=>{
         this.pg=_pg;

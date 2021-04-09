@@ -9,6 +9,7 @@ import { Constants } from 'src/app/shared/constnts';
 import { Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { HTabeModel } from 'src/app/shared/components/h-tabe/hTabe.model';
+import { IRequestedDrugViewModel } from './Models/requestedDrug.viewModel';
 
 @Injectable()
 export class DrugsService {
@@ -44,4 +45,16 @@ export class DrugsService {
     :`استبدال`;
   }
 
+  getPageOfMadeRequests(req:IDrugRequestModel){
+    return this.http
+    .get<IRequestedDrugViewModel[]>(CommonHttpUtility.constructUrl(`${environment.apiUrl}/phrdrgrequests/made`,req))
+  }
+  getPageOfRecievedRequests(req:IDrugRequestModel){
+    return this.http
+    .get<IRequestedDrugViewModel[]>(CommonHttpUtility.constructUrl(`${environment.apiUrl}/phrdrgrequests/received`,req))
+  }
+  deleteRequest(id:string){
+    return this.http.delete<void>(`${environment.apiUrl}/phrdrgrequests/made/${id}`);
+  }
 }
+

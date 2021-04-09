@@ -21,6 +21,7 @@ import { VTabsComponent } from './components/v-tabs/v-tabs.component';
 import { VTabComponent } from './components/v-tabs/v-tab.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { ModalPopupservice } from './services/modal.popup.service';
+import { ActivatePageService } from './services/activatedPage.service';
 
 
 
@@ -40,7 +41,7 @@ import { ModalPopupservice } from './services/modal.popup.service';
   ],
   providers:[CommonUtilityService,I18n, 
     {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n},
-    ModalPopupservice],
+    ModalPopupservice,ActivatePageService],
   exports:[
     FormLiveStatusComponent,
     VerticalTimelineComponent,

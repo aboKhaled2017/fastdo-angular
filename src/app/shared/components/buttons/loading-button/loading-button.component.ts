@@ -11,14 +11,14 @@ export class LoadingButtonComponent implements OnInit {
   @Input('text') text:string="ارسال";
   @Input('type') type:string;
   @Output('clicked') clicked=new EventEmitter();
-  @Input('class') class:string;
+  @Input('classes') cls:string;
   @Input('extra') extraClass:string="";
   @Input('icon') iconClass:string;
   constructor() {}
 
   ngOnInit(): void {
-    this.class=(this.class)
-    ?`${this.class} ${this.extraClass}`
+    this.cls=(this.cls)
+    ?`${this.cls} ${this.extraClass}`
     :`${this.type=='link'?'btn btn-link':'btn btn-primary'} ${this.extraClass}`;
     this.iconClass=(this.iconClass)
     ?`fa ${this.iconClass} mr-2`

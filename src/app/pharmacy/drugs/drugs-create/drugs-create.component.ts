@@ -14,6 +14,8 @@ import { Observable, of, Subscription } from 'rxjs';
 import { BasicUtility } from 'src/app/shared/Utilities/basic.utility';
 import { OnDeactivate } from '../../../shared/helpers/component.canDeActivate';
 import { ModalPopupservice } from 'src/app/shared/services/modal.popup.service';
+import { DrugsBaseComponent } from '../base.component';
+import { ActivatePageService } from 'src/app/shared/services/activatedPage.service';
 
 @Component({
   selector: 'app-drugs-create',
@@ -21,7 +23,7 @@ import { ModalPopupservice } from 'src/app/shared/services/modal.popup.service';
   styleUrls: ['./drugs-create.component.scss'],
   providers:[DrugCreateService]
 })
-export class DrugsCreateComponent implements OnDeactivate {
+export class DrugsCreateComponent extends DrugsBaseComponent implements OnDeactivate {
   fg:FormGroup;
   allErrors={
     name:{required:'اسم الراكد مطلوب',g:''},
@@ -68,9 +70,11 @@ export class DrugsCreateComponent implements OnDeactivate {
               private toastService:ToastService,
               private drugCreateService:DrugCreateService,
               private drugsService:DrugsService,
+              public activepageService: ActivatePageService,
               private route:ActivatedRoute,
-              private router:Router,
+              public router:Router,
               private modalService:ModalPopupservice) {
+                super(activepageService,router);
     this.initForm();
     this.liveText=drugCreateService.get_liveState_for_addDrug({});
     this.fg.valueChanges.subscribe(val=>{

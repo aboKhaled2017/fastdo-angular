@@ -14,6 +14,7 @@ import { DrugItemDetailsComponent } from './drugs-show-list/drug-item-details/dr
 import { DrugTableDetailsComponent } from './drugs-show-list/drug-item-details/drug-table-details/drug-table-details.component';
 import { DrugToPackageComponent } from './drugs-show-list/drug-item-details/drug-to-package/drug-to-package.component';
 import { DrugPackageStatusComponent } from './drugs-show-list/drug-item-details/drug-package-status/drug-package-status.component';
+import { DrugGuard } from 'src/app/shared/helpers/Guards/drugs.guard';
 
 
 
@@ -26,6 +27,6 @@ import { DrugPackageStatusComponent } from './drugs-show-list/drug-item-details/
     SharedModule,
     ReactiveFormsModule
   ],
-  providers:[DrugsService]
+  providers:[DrugsService,DrugGuard]
 })
 export class DrugsModule { }

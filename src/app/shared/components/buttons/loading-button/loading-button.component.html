@@ -11,7 +11,7 @@
     </span>
 </ng-template>
 <ng-template #btn>
-    <button [class]="class" 
+    <button [class]="cls" 
         [disabled]="isLoading || !isValid"
         (click)="onClick()"
         [type]="type">
@@ -20,7 +20,7 @@
     </button>
 </ng-template>
 <ng-template #link>
-    <btn [class]="class" 
+    <btn [class]="cls" 
         [disabled]="isLoading || !isValid"
         (click)="onClick()">
         <ng-container *ngTemplateOutlet="spinner"></ng-container>

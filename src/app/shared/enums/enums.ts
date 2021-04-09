@@ -12,3 +12,12 @@ export enum E_drug_UnitType{
     cartoon,
     unit
 }
+
+export enum E_drug_requestStatus{
+    Pending,
+    Accepted,
+    Rejected,
+    Completed,
+    AtNegotioation,
+    AcceptedForAnotherOne
+}
