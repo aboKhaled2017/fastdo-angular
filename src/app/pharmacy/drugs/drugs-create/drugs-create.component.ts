@@ -10,11 +10,10 @@ import { IErrorModel } from '../../../shared/models/Error.model';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { DrugsService } from '../drugs.service';
 import { delay, first, tap} from 'rxjs/operators';
-import { Observable, of, Subscription } from 'rxjs';
+import { empty, Observable, of, Subscription } from 'rxjs';
 import { BasicUtility } from 'src/app/shared/Utilities/basic.utility';
 import { OnDeactivate } from '../../../shared/helpers/component.canDeActivate';
 import { ModalPopupservice } from 'src/app/shared/services/modal.popup.service';
-import { DrugsBaseComponent } from '../base.component';
 import { ActivatePageService } from 'src/app/shared/services/activatedPage.service';
 
 @Component({
@@ -23,7 +22,7 @@ import { ActivatePageService } from 'src/app/shared/services/activatedPage.servi
   styleUrls: ['./drugs-create.component.scss'],
   providers:[DrugCreateService]
 })
-export class DrugsCreateComponent extends DrugsBaseComponent implements OnDeactivate {
+export class DrugsCreateComponent implements OnDeactivate {
   fg:FormGroup;
   allErrors={
     name:{required:'اسم الراكد مطلوب',g:''},
@@ -74,7 +73,6 @@ export class DrugsCreateComponent extends DrugsBaseComponent implements OnDeacti
               private route:ActivatedRoute,
               public router:Router,
               private modalService:ModalPopupservice) {
-                super(activepageService,router);
     this.initForm();
     this.liveText=drugCreateService.get_liveState_for_addDrug({});
     this.fg.valueChanges.subscribe(val=>{
@@ -84,6 +82,7 @@ export class DrugsCreateComponent extends DrugsBaseComponent implements OnDeacti
     of(true).pipe(delay(0)).subscribe(()=>{
       this.trackRouting();
     });
+    activepageService.setActivePage('drugs',router.url);
   }
 
   cancelEdit(){
@@ -135,26 +134,33 @@ export class DrugsCreateComponent extends DrugsBaseComponent implements OnDeacti
   }
   trackRouting() {
     let id=this.route.snapshot.paramMap.get('id');
+    let task=of(true);
     if(id){
       this.isEditMode=true;
       this.drugsService.updateTabe.next({id:1,props:{text:'تعديل راكد',iconClass:"fa-edit"}})
-      this.drugsService.getDrugById(id).subscribe(drug=>{
-        this.fg.addControl('id',this.fb.control(id,[Validators.required]));
-        this.fg.addControl('oldName',this.fb.control(drug.name,[Validators.required]));
-        this.fg.patchValue({...drug,valideDate:BasicUtility.getDatePickerObjectValue(drug.valideDate)});
-      },err=>{
-        this.router.navigate(['']);
-      }); 
+      task=new Observable(o=>{
+        this.drugsService.getDrugById(id).subscribe(drug=>{
+          this.fg.addControl('id',this.fb.control(id,[Validators.required]));
+          this.fg.addControl('oldName',this.fb.control(drug.name,[Validators.required]));
+          this.fg.patchValue({...drug,valideDate:BasicUtility.getDatePickerObjectValue(drug.valideDate)});
+          o.next(true);
+        },err=>{
+          this.router.navigate(['']);
+        }); 
+      })
     }
     else{
       this.drugsService.updateTabe.next({id:1,props:{text:'اضافة راكد',iconClass:"fa-plus-circle"}})
     }
-    this.formChangesSubscription.add(
-      this.formChangesSubscription=this.fg.valueChanges
-       .pipe(first())
-      .subscribe(()=>{
-      this.isAnyChanges=true;
-    }));
+    task
+    .subscribe(()=>{
+      this.formChangesSubscription.add(
+        this.formChangesSubscription=this.fg.valueChanges
+         .pipe(first())
+        .subscribe(()=>{
+        this.isAnyChanges=true;
+      }));
+    });
   }
   ngAfterViewInit(): void {
     

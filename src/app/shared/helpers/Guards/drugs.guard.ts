@@ -11,7 +11,6 @@ export class DrugGuard implements CanActivate{
     let defaultPage=this.activePageService.getActivePage('drugs');
     if(!defaultPage){
         defaultPage=`${state.url}/list`;
-        alert(defaultPage)
         this.activePageService.setActivePage('drugs',defaultPage);
     }
     this.router.navigate([defaultPage]);

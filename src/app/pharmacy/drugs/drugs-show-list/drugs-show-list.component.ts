@@ -20,15 +20,10 @@ import { ActivatePageService } from 'src/app/shared/services/activatedPage.servi
   templateUrl: './drugs-show-list.component.html',
   styleUrls: ['./drugs-show-list.component.scss']
 })
-export class DrugsShowListComponent  extends DrugsBaseComponent {
+export class DrugsShowListComponent  extends DrugsBaseComponent<IDrugModel> {
 
-  pg:IGeneralPagination;
-  datalist:IDrugModel[]=[];
-  loading:boolean;
   cols:ITbColModel[];
-  private setDataList=(data)=>{
-    this.datalist=data;
-  }
+  
   private getCols():ITbColModel[]{
    return [
     {name:'الاسم',cols:2,propName:'name',classList:'notArabicFont'},
@@ -38,7 +33,7 @@ export class DrugsShowListComponent  extends DrugsBaseComponent {
     {name:'التحكم',cols:1,propName:null,display:true},
   ];
   }
-  constructor(private paginatorService:PaginatorService,
+  constructor(public paginatorService:PaginatorService,
               private drugsService:DrugsService,
               public loaderService:LoaderService,
               private modalService:NgbModal,
@@ -46,27 +41,12 @@ export class DrugsShowListComponent  extends DrugsBaseComponent {
               public router:Router,
               public activepageService: ActivatePageService,
               private route:ActivatedRoute) {
-                super(activepageService,router);
-      loaderService.isLoading.subscribe(e=>this.loading=e);
-      this.paginatorService.paginator.subscribe(_pg=>{
-        this.pg=_pg;
-      });
-      this.onRefresh(); 
+      super(activepageService,loaderService,paginatorService,
+        router,drugsService.getPageOfDrugs.bind(drugsService));
+      
       this.cols=this.getCols();
   }
 
-  onPageSelected(page){
-    this.drugsService.getPageOfDrugs(new DrugRequestModel({...this.pg,currentPage:page}))
-    .subscribe(this.setDataList);
-  }
-  onRefresh(){
-    this.drugsService.getPageOfDrugs(new DrugRequestModel(this.pg))
-    .subscribe(this.setDataList);
-  }
-  onPageSizeSelected(pageSize){
-    this.drugsService.getPageOfDrugs(new DrugRequestModel({...this.pg,pageSize:pageSize,currentPage:1}))
-    .subscribe(this.setDataList);
-  }
   onEdit(id){
     this.router.navigate(['../edit',id],{relativeTo:this.route})
   }

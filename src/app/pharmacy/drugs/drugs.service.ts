@@ -10,6 +10,9 @@ import { Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { HTabeModel } from 'src/app/shared/components/h-tabe/hTabe.model';
 import { IRequestedDrugViewModel } from './Models/requestedDrug.viewModel';
+import { IReicevedDrugViewModel } from './Models/recievedDrug.viewModel';
+import { E_drug_requestStatus } from '../../shared/enums/enums';
+import { IHttpPatchBody } from 'src/app/shared/models/IHttpPatchBody';
 
 @Injectable()
 export class DrugsService {
@@ -51,7 +54,14 @@ export class DrugsService {
   }
   getPageOfRecievedRequests(req:IDrugRequestModel){
     return this.http
-    .get<IRequestedDrugViewModel[]>(CommonHttpUtility.constructUrl(`${environment.apiUrl}/phrdrgrequests/received`,req))
+    .get<IReicevedDrugViewModel[]>(CommonHttpUtility.constructUrl(`${environment.apiUrl}/phrdrgrequests/received`,req))
+  }
+  changeRequestStatus(id:string,status:E_drug_requestStatus){
+    let body:IHttpPatchBody=[
+      {op:'replace',path:'/Seen',value:true},
+      {op:'replace',path:'Status',value:status}
+    ];
+    return this.http.patch<void>(`${environment.apiUrl}/phrdrgrequests/received/${id}`,body);
   }
   deleteRequest(id:string){
     return this.http.delete<void>(`${environment.apiUrl}/phrdrgrequests/made/${id}`);

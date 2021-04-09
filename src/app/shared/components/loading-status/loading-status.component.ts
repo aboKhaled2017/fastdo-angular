@@ -8,6 +8,7 @@ import { Component, ElementRef, Input, OnInit, Renderer2, ViewEncapsulation } fr
 })
 export class LoadingStatusComponent implements OnInit {
   @Input('loading') isLoading:boolean
+  @Input() innerClass="";
   constructor(private elementRef:ElementRef<HTMLElement>,private dom:Renderer2) { }
 
   ngOnInit(): void {

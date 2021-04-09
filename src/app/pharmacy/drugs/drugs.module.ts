@@ -15,12 +15,16 @@ import { DrugTableDetailsComponent } from './drugs-show-list/drug-item-details/d
 import { DrugToPackageComponent } from './drugs-show-list/drug-item-details/drug-to-package/drug-to-package.component';
 import { DrugPackageStatusComponent } from './drugs-show-list/drug-item-details/drug-package-status/drug-package-status.component';
 import { DrugGuard } from 'src/app/shared/helpers/Guards/drugs.guard';
+import { DrugsBaseComponent } from './base.component';
 
 
 
 @NgModule({
   declarations: [DrugsComponent, DrugsCreateComponent, 
-    DrugsShowListComponent, DrugsListWeRequestedComponent, DrugsReqsListWeRecievedComponent, DrugItemDetailsComponent, DrugTableDetailsComponent, DrugToPackageComponent, DrugPackageStatusComponent],
+    DrugsShowListComponent, DrugsListWeRequestedComponent, 
+    DrugsReqsListWeRecievedComponent, DrugItemDetailsComponent,
+     DrugTableDetailsComponent, DrugToPackageComponent, 
+     DrugPackageStatusComponent,DrugsBaseComponent],
   imports: [
     CommonModule,
     DrugsRoutingModule,

@@ -19,20 +19,13 @@ import { ModalPopupservice } from '../../../shared/services/modal.popup.service'
   templateUrl: './drugs-list-we-requested.component.html',
   styleUrls: ['./drugs-list-we-requested.component.scss']
 })
-export class DrugsListWeRequestedComponent extends DrugsBaseComponent  implements OnInit {
-  datalist:IRequestedDrugViewModel[]=[];
-  pg:IGeneralPagination={} as any;
-  loading:boolean;
-  private reqModel:IDrugRequestModel;
-  private setDataList=(data:IRequestedDrugViewModel[])=>{
-    this.datalist=data;
-  }
-  buildRequestModel(){
-    this.reqModel=new DrugRequestModel(this.pg);
+export class DrugsListWeRequestedComponent extends DrugsBaseComponent<IRequestedDrugViewModel> {
+
+  private  _buildRequestModel(){
     this.reqModel.addCriteria("status");
     this.reqModel.addCriteria("seen");   
   }
-  constructor(private paginatorService:PaginatorService,
+  constructor(public paginatorService:PaginatorService,
     private drugsService:DrugsService,
     public loaderService:LoaderService,
     public activepageService: ActivatePageService,
@@ -40,28 +33,12 @@ export class DrugsListWeRequestedComponent extends DrugsBaseComponent  implement
     private modalPopupservice:ModalPopupservice,
     public router:Router,
     private toastService:ToastService) { 
-      super(activepageService,router);
-      this.buildRequestModel();
-      loaderService.isLoading.subscribe(e=>this.loading=e);
-      this.paginatorService.paginator.subscribe(_pg=>{
-        this.pg=_pg;
-      });
-      this.onRefresh(); 
+      super(activepageService,loaderService,paginatorService,
+        router,drugsService.getPageOfMadeRequests.bind(drugsService));
+      this._buildRequestModel();
   }
 
   ngOnInit(): void {
-  }
-  onPageSelected(page){ 
-    this.drugsService.getPageOfMadeRequests(this.reqModel.reBuild({...this.pg,currentPage:page}))
-    .subscribe(this.setDataList);
-  }
-  onRefresh(){
-    this.drugsService.getPageOfMadeRequests(this.reqModel.reBuild(this.pg))
-    .subscribe(this.setDataList);
-  }
-  onPageSizeSelected(pageSize){
-    this.drugsService.getPageOfMadeRequests(this.reqModel.reBuild({...this.pg,pageSize:pageSize,currentPage:1}))
-    .subscribe(this.setDataList);
   }
   get getDataList(){
     return this.datalist.map(e=>({

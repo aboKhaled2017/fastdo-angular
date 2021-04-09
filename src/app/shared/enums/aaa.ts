@@ -42,14 +42,7 @@ export enum E_LzDrgRequestStatus
     AtNegotioation,
     AcceptedForAnotherOne
 }
-export interface I_DrgRequest_I_Received{
-    id:string 
-    lzDrugId:string
-    lzDrugName:string
-    status:E_LzDrgRequestStatus
-    pharmacyId:string
-    phName:string
-}
+
 export interface I_DrgRequest_I_Made{
     id:string 
     lzDrugId:string
