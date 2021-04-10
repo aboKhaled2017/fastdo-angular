@@ -10,7 +10,7 @@ export class CheckboxComponent implements OnInit {
 
   id:string;
   @Input() checked=false;
-  @Input() label='';
+  @Input() label;
   @Input() disabled=false;
   constructor() { 
     this.id=BasicUtility.getUniqueId(4);

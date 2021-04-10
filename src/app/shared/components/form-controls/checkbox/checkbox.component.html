@@ -10,7 +10,7 @@
     <input [id]="id" 
            type="checkbox" 
            [checked]="checked">
-    <label [for]="id">
+    <label *ngIf="label" [for]="id">
         <div class="label-text">{{label}}</div>
     </label>
     <span></span>

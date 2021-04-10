@@ -25,6 +25,9 @@ import { ActivatePageService } from './services/activatedPage.service';
 import { CheckboxComponent } from './components/form-controls/checkbox/checkbox.component';
 import { SearchInputComponent } from './components/form-controls/search-input/search-input.component';
 import { SerachInputSelectComponent } from './components/form-controls/serach-input-select/serach-input-select.component';
+import { CancelHttpService } from './services/cancelHttp.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CancelHttpInterceptor } from './helpers/cancelHttp.Interceptor';
 
 
 
@@ -43,9 +46,14 @@ import { SerachInputSelectComponent } from './components/form-controls/serach-in
     NgbNavModule,
     NgbModalModule
   ],
-  providers:[CommonUtilityService,I18n, 
+  providers:[
+    CommonUtilityService,I18n, 
     {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n},
-    ModalPopupservice,ActivatePageService],
+    ModalPopupservice,
+    ActivatePageService,
+    CancelHttpService,
+    {provide:HTTP_INTERCEPTORS,useClass:CancelHttpInterceptor,multi:true},
+  ],
   exports:[
     FormLiveStatusComponent,
     VerticalTimelineComponent,

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
+import { ActivationEnd, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
 import { User } from './shared/models/User';
 import { AuthService } from './shared/services/auth.service';
+import { CancelHttpService } from './shared/services/cancelHttp.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent {
   loadingLazyLoadedRoute=false;
   constructor(
       private router: Router,
+      private cancelHttpReq:CancelHttpService,
       private authenticationService: AuthService) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
       //on routing lazy loaded components
@@ -22,6 +24,15 @@ export class AppComponent {
         } else if (event instanceof RouteConfigLoadEnd) {
             this.loadingLazyLoadedRoute = false;
         }
+        else if (event instanceof NavigationStart) {
+          this.cancelHttpReq.cancelPendingRequests()
+        }
+
+  /*       if (event instanceof NavigationEnd || 
+          event instanceof NavigationCancel ||
+          event instanceof NavigationError) {
+          console.log(event)
+      } */
     });
   }
 

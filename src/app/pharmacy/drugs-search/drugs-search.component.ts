@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ISearchMenuInputSelectData } from 'src/app/shared/components/form-controls/serach-input-select/models/ISearchMenu.model';
+import { IAreaModel } from '../../shared/models/IAreaModel';
 
 @Component({
   selector: 'app-drugs-search',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DrugsSearchComponent implements OnInit {
 
-  constructor() { }
+  areas:IAreaModel[];
+  cities=[]
+  constructor() { 
+    this.areas=[];
+  }
 
   ngOnInit(): void {
   }

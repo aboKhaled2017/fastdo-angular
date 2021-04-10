@@ -1,5 +1,4 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { FormControl } from '@angular/forms';
 
 @Directive({
   selector: '[loadingStatus]'

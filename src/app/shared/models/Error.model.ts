@@ -12,7 +12,8 @@ export enum ErrorStatus{
  serverError,
  notFoundError,
  badRequestError,
- unAuthorizedError
+ unAuthorizedError,
+ frontError
 }
 export class ErrorModel implements IErrorModel{
     status: ErrorStatus;
@@ -21,31 +22,39 @@ export class ErrorModel implements IErrorModel{
     message?: string;
     private _noMessage="لقد حدثت مشكلة فى السيرفر";
     constructor(errorRes:HttpErrorResponse,uilityService: CommonUtilityService){
-        if(errorRes.status==400){
-            this.status=ErrorStatus.badRequestError;
-            if(errorRes.error.errors)
-            {
-                this.hasValidationError=true;
-                this.error=uilityService.convertObjPropsToCamleCseString(errorRes.error.errors);
+        if (errorRes.error instanceof ErrorEvent) {
+            // Client-side errors
+            this.status=ErrorStatus.frontError;
+            this.message = `Error: ${errorRes.error.message}`;
+          } else {
+            // Server-side errors
+            if(errorRes.status==400){
+                this.status=ErrorStatus.badRequestError;
+                if(errorRes.error.errors)
+                {
+                    this.hasValidationError=true;
+                    this.error=uilityService.convertObjPropsToCamleCseString(errorRes.error.errors);
+                }
+                else{
+                    this.message=this._noMessage;
+                }
             }
-            else{
+            else if(errorRes.status==404){
+                this.status=ErrorStatus.notFoundError;
+                if(errorRes.error.errors)
+                {
+                    this.hasValidationError=true;
+                    this.error=uilityService.convertObjPropsToCamleCseString(errorRes.error.errors);
+                }
+                else{
+                    this.message=this._noMessage;
+                }
+            }
+            else {
+                this.status=ErrorStatus.serverError;
                 this.message=this._noMessage;
             }
-        }
-        else if(errorRes.status==404){
-            this.status=ErrorStatus.notFoundError;
-            if(errorRes.error.errors)
-            {
-                this.hasValidationError=true;
-                this.error=uilityService.convertObjPropsToCamleCseString(errorRes.error.errors);
-            }
-            else{
-                this.message=this._noMessage;
-            }
-        }
-        else {
-            this.status=ErrorStatus.serverError;
-            this.message=this._noMessage;
-        }
+          }
+        
     }
 }

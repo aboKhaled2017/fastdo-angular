@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import {  fromEvent } from 'rxjs';
+import {  from, fromEvent } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { ISearchMenuInputSelectData } from './models/ISearchMenu.model';
 
 @Component({
@@ -17,7 +18,10 @@ export class SerachInputSelectComponent implements OnInit {
   @ViewChild('select_menu') menue:ElementRef<HTMLElement>;
   selectedItems:ISearchMenuInputSelectData[];
   menuOpened=false;
+  isInputFocused=false;
+  labelInBody=true;
   @Input('data') data:ISearchMenuInputSelectData[]
+  @Input() label:string
   @Output('selectChange') selectChange=new EventEmitter<ISearchMenuInputSelectData[]>();
   constructor(private _eref: ElementRef) { 
   }
@@ -25,12 +29,26 @@ export class SerachInputSelectComponent implements OnInit {
   ngOnInit(): void {
   }
   ngAfterViewInit(): void {
-    fromEvent(this.input.nativeElement,'keyup')
-    .subscribe((e:any)=>{
+    from(['focus','blur','keyup'])
+    .pipe(mergeMap(e=>fromEvent(this.input.nativeElement,e)))
+    .subscribe(ev=>{
+     if(ev.type=='focus'){
+        this.labelInBody=false;
+     }
+     else if(ev.type=='blur'){
+      if(ev.target['value'] || this.data.some(e=>e.selected)){
+        this.labelInBody=false;
+      }
+      else{
+        this.labelInBody=true;
+      }
+     }
+     else if(ev.type=='keyup'){
       this.menuOpened=true;
-     let val=e.target.value || '';
-     this.data=this.data
-           .map(e=>({...e,notMatched:!(<string>e.value).includes(val)}));
+      let val=ev.target['value'] || '';
+       this.data=this.data
+             .map(e=>({...e,notMatched:!(<string>e.value).includes(val)}));
+     }
     });
   }
   onDomClick(event:Event){
@@ -66,6 +84,12 @@ export class SerachInputSelectComponent implements OnInit {
     this.handleSelectChange();
   }
   handleSelectChange(){
+    if(this.data.some(e=>e.selected)){
+      this.labelInBody=false;
+    }
+    else{
+      this.labelInBody=true;
+    }
     this.selectChange.emit(
       this.data.filter(e=>e.selected)
       );

@@ -35,8 +35,9 @@
             <ng-container *ngFor="let item of data; let i=index">
                 <div *ngIf="!item.notMatched" class="d-flex li"  (click)="toggleItem(i)">
                     <div class="checkbox">
-                      <app-checkbox [checked]="item.selected" [label]="item.value"></app-checkbox>
+                      <app-checkbox (clicked)="toggleItem(i)" [checked]="item.selected"></app-checkbox>
                     </div>
+                    <span class="checkbox-label">{{item.value}}</span>
                 </div>
             </ng-container>
             
@@ -67,9 +68,13 @@
 
 
 <div class="inp-parent-wapper mt-4 position-relative">
+    <span  *ngIf="!labelInBody" class="inp-top-label">{{label}}</span>
     <div class="inp-wrapper position-relative d-flex flex-wrap">
         <ng-container *ngTemplateOutlet="chips"></ng-container>      
-        <input #input type="text" placeholder="ابحث فى محافظة معينة"class=""/>
+        <div class="inp-outer">
+            <span (click)="input.focus()" *ngIf="labelInBody" class="inp-label">{{label}}</span>
+            <input [ngClass]="{'focused':isInputFocused}" #input type="text" class=""/>
+        </div>
     </div>
     <ng-container *ngTemplateOutlet="closebtn"></ng-container>
     <ng-container *ngTemplateOutlet="menubtn"></ng-container>

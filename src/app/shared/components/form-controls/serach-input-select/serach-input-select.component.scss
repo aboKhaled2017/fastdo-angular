@@ -1,4 +1,4 @@
-
+@import './../../../../scss/variables';
 
 .inp-parent-wapper{
     width: 100%;
@@ -109,7 +109,19 @@
         &:focus .inp-parent-wapper{
             color:red
         }
+        
        }
+    }
+    .inp-top-label{
+        position: absolute;
+        top: -7px;
+        right: 20px;
+        padding: 0 8px;
+        background: #fff;
+        z-index: 2;
+        color: #3f51b5;
+        font-size: 11px;
+        transition: all .5s ease-in-out;
     }
 }
 
@@ -139,15 +151,18 @@
             }
         }
     }
-    
+    .checkbox-label{
+        margin-right: 34px;
+        line-height: 30px;
+    }
 }
 .selected-items{
     .items-wrapper{
         .chip{
             color: rgba(0, 0, 0, 0.87);
-            border: none;
+            border: 1px solid #adb5bd;
             cursor: default;
-            height: 32px;
+            height: 26px;
             display: inline-flex;
             outline: 0;
             padding: 0;
@@ -190,6 +205,18 @@
                     color: rgba(0, 0, 0, 0.4);
                 }
             }
+        }
+    }
+}
+.inp-outer{
+    .inp-label{
+        position: absolute;
+        top: 7px;
+        color: #6c757deb;
+    }
+    input{
+        &.focused{
+            color:red;
         }
     }
 }

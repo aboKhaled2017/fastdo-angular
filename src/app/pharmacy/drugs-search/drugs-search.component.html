@@ -9,7 +9,15 @@
                 </div>
                 <div class="mt-3">
                     <app-serach-input-select (selectChange)="selectedCityChanged($event)"
-                    [data]="[]"></app-serach-input-select>
+                                             label="ابحث فى محافظة معينة"
+                                             [data]="cities">
+                    </app-serach-input-select>
+                </div>
+                <div class="mt-3">
+                    <app-serach-input-select (selectChange)="selectedCityChanged($event)"
+                                             label="ابحث فى منطقة معينة"
+                                             [data]="areas">
+                    </app-serach-input-select>
                 </div>
                </div>
             </div>
