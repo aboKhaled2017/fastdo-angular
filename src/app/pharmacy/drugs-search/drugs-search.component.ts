@@ -11,5 +11,10 @@ export class DrugsSearchComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  selectedCityChanged(obj){
+    console.log(obj)
+  }
+  onSearchChange(value:string){
+   console.log(value)
+  }
 }

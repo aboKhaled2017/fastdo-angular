@@ -22,6 +22,9 @@ import { VTabComponent } from './components/v-tabs/v-tab.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { ModalPopupservice } from './services/modal.popup.service';
 import { ActivatePageService } from './services/activatedPage.service';
+import { CheckboxComponent } from './components/form-controls/checkbox/checkbox.component';
+import { SearchInputComponent } from './components/form-controls/search-input/search-input.component';
+import { SerachInputSelectComponent } from './components/form-controls/serach-input-select/serach-input-select.component';
 
 
 
@@ -30,7 +33,8 @@ import { ActivatePageService } from './services/activatedPage.service';
     TrackArabicTextDirective, InputValidatorDirective, LoadingButtonComponent, 
     HTabeComponent, InputWithValidationComponent, CustomSelectInputComponent, 
     PagingSectionComponent, LoadingStatusComponent, MainTableComponent, 
-    MainTableRowSectionComponent, VTabsComponent,VTabComponent, ConfirmModalComponent],
+    MainTableRowSectionComponent, VTabsComponent,VTabComponent, ConfirmModalComponent,
+     CheckboxComponent,SearchInputComponent,SerachInputSelectComponent],
   imports: [
     CommonModule,RouterModule,
     ReactiveFormsModule,
@@ -55,7 +59,10 @@ import { ActivatePageService } from './services/activatedPage.service';
     MainTableComponent,
     VTabsComponent,
     VTabComponent,
-    NgbModalModule
+    NgbModalModule,
+    CheckboxComponent,
+    SearchInputComponent,
+    SerachInputSelectComponent
   ],
   schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
 })
