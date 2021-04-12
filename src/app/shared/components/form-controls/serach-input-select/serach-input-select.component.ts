@@ -16,6 +16,7 @@ export class SerachInputSelectComponent implements OnInit {
   @ViewChild('indicator') indicator:ElementRef<HTMLElement>;
   @ViewChild('input') input:ElementRef<HTMLElement>;
   @ViewChild('select_menu') menue:ElementRef<HTMLElement>;
+  @ViewChild('input_wapper') inputWapperEl:ElementRef<HTMLElement>;
   selectedItems:ISearchMenuInputSelectData[];
   menuOpened=false;
   isInputFocused=false;
@@ -50,6 +51,10 @@ export class SerachInputSelectComponent implements OnInit {
              .map(e=>({...e,notMatched:!(<string>e.value).includes(val)}));
      }
     });
+
+    fromEvent(this.inputWapperEl.nativeElement,'click').subscribe(ev=>{
+      this.input.nativeElement.focus();
+     });
   }
   onDomClick(event:Event){
     let target=event.target as HTMLElement;

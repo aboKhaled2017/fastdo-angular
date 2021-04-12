@@ -106,3 +106,21 @@
     }
 }
 
+.inp-top-label{
+    position: absolute;
+    top: -7px;
+    right: 20px;
+    padding: 0 8px;
+    background: #fff;
+    z-index: 0;
+    color: #3f51b5;
+    font-size: 11px;
+    transition: all .5s ease-in-out;
+}
+.inp-outer{
+    .inp-label{
+        position: absolute;
+        top: 7px;
+        color: #6c757deb;
+    }
+}

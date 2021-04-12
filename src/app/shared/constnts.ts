@@ -12,6 +12,10 @@ export class Constants{
        drugsTypes:Lists.drugsTypes
       }
    } 
+   static activePags={
+      drugsPage:'drugs',
+      pharmacy_Stores:'ph_stores'
+   }
 }
  class Lists{
    public static  drugsPriceTypes=[

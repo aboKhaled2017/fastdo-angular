@@ -67,12 +67,12 @@
 </ng-template>
 
 
-<div class="inp-parent-wapper mt-4 position-relative">
+<div class="inp-parent-wapper mt-4 position-relative" #input_wapper>
     <span  *ngIf="!labelInBody" class="inp-top-label">{{label}}</span>
     <div class="inp-wrapper position-relative d-flex flex-wrap">
         <ng-container *ngTemplateOutlet="chips"></ng-container>      
         <div class="inp-outer">
-            <span (click)="input.focus()" *ngIf="labelInBody" class="inp-label">{{label}}</span>
+            <span *ngIf="labelInBody" class="inp-label">{{label}}</span>
             <input [ngClass]="{'focused':isInputFocused}" #input type="text" class=""/>
         </div>
     </div>

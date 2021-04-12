@@ -12,8 +12,9 @@ import { DrugsComponent } from './drugs.component';
  
 const routes:Routes=[
   {path:'',component:DrugsComponent, children:[
-    {path:'edit',component:DrugsCreateComponent,canDeactivate:[ComponentOnDeactivate]},
     {path:'edit/:id',component:DrugsCreateComponent,canDeactivate:[ComponentOnDeactivate]},
+    {path:'edit',component:DrugsCreateComponent}, //should be handled here for deactivate
+    
     {path:'list',component:DrugsShowListComponent},
     {path:'we-requested',component:DrugsListWeRequestedComponent},
     {path:'we-recieved',component:DrugsReqsListWeRecievedComponent},

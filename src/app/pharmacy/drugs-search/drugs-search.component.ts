@@ -1,26 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { ISearchMenuInputSelectData } from 'src/app/shared/components/form-controls/serach-input-select/models/ISearchMenu.model';
-import { IAreaModel } from '../../shared/models/IAreaModel';
+import { Component } from '@angular/core';
+import { IGeneralPagination } from 'src/app/shared/models/IPagination.model';
+import { PaginatorService } from 'src/app/shared/services/paginator.service';
+import { DrugRequestModel, IDrugRequestModel } from '../drugs/Models/drugRequest.model';
+import { DrugSearchService } from './drug-search.service';
+import { LoaderService } from '../../shared/services/loader-service.service';
 
 @Component({
   selector: 'app-drugs-search',
   templateUrl: './drugs-search.component.html',
-  styleUrls: ['./drugs-search.component.scss']
+  styleUrls: ['./drugs-search.component.scss'],
+  providers:[DrugSearchService]
 })
-export class DrugsSearchComponent implements OnInit {
-
-  areas:IAreaModel[];
-  cities=[]
-  constructor() { 
-    this.areas=[];
+export class DrugsSearchComponent{
+ 
+  loading:boolean=false;
+  pg:IGeneralPagination;
+  reqModel:IDrugRequestModel;
+  constructor(public drugSearchService:DrugSearchService,
+              public paginatorService:PaginatorService) { 
+    this.reqModel=new DrugRequestModel(this.pg);
+    drugSearchService.loading.subscribe(v=>this.loading=v);
+    this.paginatorService.paginator.subscribe(_pg=>{
+      this.pg=_pg;
+    });
+    this.onRefresh();
   }
-
-  ngOnInit(): void {
+  onPageSelected(page){
+    this.drugSearchService.getWhere({pageNumber:page});
   }
-  selectedCityChanged(obj){
-    console.log(obj)
+  onRefresh(){
+    this.drugSearchService.getWhere({});
   }
-  onSearchChange(value:string){
-   console.log(value)
+  onPageSizeSelected(pageSize){
+    this.drugSearchService.getWhere({pageNumber:1,pageSize:pageSize});
   }
 }

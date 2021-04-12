@@ -1,5 +1,5 @@
-<div class="inp-parent-wapper">
-    <button class="icon-btn">
+<ng-template #right_btn>
+    <button class="icon-btn" #close>
         <span class="span1">
             <svg class="" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
@@ -10,13 +10,9 @@
         </span>
         
     </button>
-    <div class="inp-wrapper position-relative">
-        <input type="text" 
-               [placeholder]="label"
-               #t
-               (keyup)="onChange(t.value)"
-               class=""/>
-    </div>
+</ng-template>
+
+<ng-template #left_btn>
     <button class="icon-btn">
         <span class="span1">
             <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" 
@@ -25,4 +21,17 @@
         </span>
         <span class="span2"></span>
     </button>
+</ng-template>
+
+
+<div class="inp-parent-wapper position-relative" #input_wapper>
+    <span  *ngIf="!labelInBody" class="inp-top-label">{{label}}</span>
+    <ng-container *ngTemplateOutlet="right_btn"></ng-container>  
+    <div class="inp-wrapper position-relative">
+        <div class="inp-outer">
+            <span (click)="input.focus()" *ngIf="labelInBody" class="inp-label">{{label}}</span>
+            <input #input type="text" class=""/>
+        </div>
+    </div>
+    <ng-container *ngTemplateOutlet="left_btn"></ng-container> 
 </div>

@@ -6,4 +6,5 @@ export interface ISearchMenuInputSelectData{
     value:any
     selected?:boolean
     notMatched?:boolean
+    [key:string]:any
 }
