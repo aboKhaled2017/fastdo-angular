@@ -11,7 +11,12 @@ const routes:Routes=[
  {path:'',children:[
    {
      path:'mydrugs',
-     loadChildren:()=>import('./drugs/drugs.module').then(m=>m.DrugsModule)},
+     loadChildren:()=>import('./drugs/drugs.module').then(m=>m.DrugsModule)
+   },
+   {
+    path:'request-drugs-from-stores',
+    loadChildren:()=>import('./drugs-requests/pharmacy-drugs-requests.module').then(m=>m.PharmacyDrugsRequestsModule)
+   },
    {
      path:'serachdrugs',
      loadChildren:()=>import('./drugs-search/drug-search.module').then(e=>e.DrugSearchModule),

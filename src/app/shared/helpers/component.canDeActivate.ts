@@ -11,6 +11,7 @@ export class ComponentOnDeactivate implements CanDeactivate<OnDeactivate>{
     canDeactivate(component: OnDeactivate, currentRoute: ActivatedRouteSnapshot,
          currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): 
          boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+             if(!component)return true;
          return component.ngOnDeactivate(currentRoute,currentState,nextState);
     }
     

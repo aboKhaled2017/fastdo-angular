@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, of, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { PageRequestModel } from 'src/app/shared/models/Page.request.model';
 import { IPharmacySearchStkResponseModel } from './models/IPharmacy.stk.search.model';
@@ -10,6 +10,7 @@ import { E_PharmacyStoreComponentType } from './models/enums';
 import { PaginatorService } from '../../shared/services/paginator.service';
 import { LoaderService } from '../../shared/services/loader-service.service';
 import { environment } from 'src/environments/environment';
+import { ActivatePageService } from '../../shared/services/activatedPage.service';
 
 @Injectable()
 export class MyStoresService<TResponseModel>{
@@ -30,7 +31,8 @@ export class MyStoresService<TResponseModel>{
   constructor(private http:HttpClient,
               private toastService:ToastService,
               public pgService:PaginatorService,
-              public loadingService:LoaderService) {
+              public loadingService:LoaderService,
+              public activepageService:ActivatePageService) {
   }
   private getPageOfSearchedStore(req:PageRequestModel){
      this.http
@@ -72,4 +74,15 @@ export class MyStoresService<TResponseModel>{
       this.toastService.showError(err.message);
     })
   }
+  cancelContract(id:string){
+    let afterCancel=new Subject<boolean>();
+    this.http.delete(`${environment.apiUrl}/pharmas/stkRequests/${id}`)
+   .subscribe(()=>{
+     afterCancel.next(true);
+     this.toastService.showSuccess("تم ارسال الغاء طلب تعاقدك بنجاح");
+   },(err:IErrorModel)=>{
+     this.toastService.showError(err.message);
+   });
+   return afterCancel;
+ }
 }

@@ -1,4 +1,4 @@
-import { E_drug_requestStatus } from '../../../shared/enums/enums';
+import { E_drug_requestStatus, E_PharmacyRequestStatus } from '../../../shared/enums/enums';
 import { E_PharmacyStoreComponentType } from './enums';
 
 export interface IPharmacyStkComponentType{
@@ -23,10 +23,10 @@ export interface IPharmacyRequestedStkResponseModel {
     name: string
     persPhone: string
     seen: boolean
-    status: E_drug_requestStatus
+    status: E_PharmacyRequestStatus
     stockId: string
 }
-export interface IPhamacyContractedStkResponseModel {
+export interface IPharmacyContractedStkResponseModel {
     address: string
     addressInDetails: string|null
     landeLinePhone: string

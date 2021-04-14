@@ -3,6 +3,8 @@ import { MyStoresService } from './my-stores.service';
 import { IGeneralPagination } from '../../shared/models/IPagination.model';
 import { E_PharmacyStoreComponentType } from './models/enums';
 import { IPharmacyStkComponentType } from './models/IPharmacy.stk.search.model';
+import { Router } from '@angular/router';
+import { Constants } from '../../shared/constnts';
 
 @Component({
   selector: 'app.base-mystore',
@@ -14,8 +16,11 @@ export class BaseStoresComponent<TResponseModel> implements IPharmacyStkComponen
   pg:IGeneralPagination;
   datalist:TResponseModel[]=[];
   type: E_PharmacyStoreComponentType;
-  constructor(public storeService:MyStoresService<TResponseModel>,type:E_PharmacyStoreComponentType) {
+  constructor(public storeService:MyStoresService<TResponseModel>,
+              public router:Router,
+              type:E_PharmacyStoreComponentType) {
     this.type=type;
+    storeService. activepageService.setActivePage(Constants.activePags.pharmacy_Stores,router.url);
     this.storeService.pgService.paginator.subscribe(_pg=>{
       this.pg=_pg;
     });

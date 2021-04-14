@@ -14,7 +14,8 @@ export class Constants{
    } 
    static activePags={
       drugsPage:'drugs',
-      pharmacy_Stores:'ph_stores'
+      pharmacy_Stores:'ph_stores',
+      pharmacy_DrugsRequests:'ph_drug_requests'
    }
 }
  class Lists{

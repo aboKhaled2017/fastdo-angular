@@ -21,3 +21,17 @@ export enum E_drug_requestStatus{
     AtNegotioation,
     AcceptedForAnotherOne
 }
+export enum E_PharmacyRequestStatus
+{
+    Pending ,
+    Accepted ,
+    Rejected ,
+    Disabled 
+}
+export enum E_StockRequestStatus
+{
+    Pending ,
+    Accepted ,
+    Rejected ,
+    Disabled 
+}

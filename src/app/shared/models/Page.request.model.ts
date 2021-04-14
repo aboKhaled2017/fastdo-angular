@@ -23,7 +23,7 @@ export class  PageRequestModel implements IPageRequestModel{
             this[e[0]]=e[1];
         });
     }
-    reBuild(pg:IGeneralPagination,props?:{[key:string]:any}){
+    reBuild(pg:Partial<{pageNumber:number,pageSize:number}>,props?:{[key:string]:any}){
      this.setValues(pg,props);
      return this;
     }

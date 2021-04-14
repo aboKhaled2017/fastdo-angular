@@ -6,7 +6,7 @@ import { IPharmacySearchStkResponseModel } from '../models/IPharmacy.stk.search.
 import { E_PharmacyStoreComponentType } from '../models/enums';
 import { BaseStoresComponent } from '../base.component';
 import { SearchInputComponent } from '../../../shared/components/form-controls/search-input/search-input.component';
-import { bufferTime, bufferWhen, map, mapTo } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-search-stores',
@@ -19,7 +19,7 @@ export class SearchStoresComponent extends BaseStoresComponent<IPharmacySearchSt
   constructor(public storeService:MyStoresService<IPharmacySearchStkResponseModel>,
               public activepageService:ActivatePageService,
               public router:Router){
-      super(storeService,E_PharmacyStoreComponentType.searched);
+      super(storeService,router,E_PharmacyStoreComponentType.searched);
     }
   
   ngOnInit(): void {
