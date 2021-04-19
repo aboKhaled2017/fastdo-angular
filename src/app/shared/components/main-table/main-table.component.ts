@@ -12,9 +12,10 @@ export class MainTableComponent implements OnInit {
   @Input() data:{[key:string]:any}[];
   @Input('controls') public controls:TemplateRef<HTMLElement>;
   @Input('collapsed') public collapsed_tr:TemplateRef<HTMLElement>;
+  @Input('tstyle') tstyle={thead:{},tbody:{}} 
+  @Input('tclass') tclass={thead:"",tbody:""};
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

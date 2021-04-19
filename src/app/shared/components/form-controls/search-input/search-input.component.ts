@@ -11,6 +11,7 @@ export class SearchInputComponent implements OnInit {
 
   @Output('textChanged') textChanged=new Subject<string>();
   @Input('label') label:string;
+  @Input() hasIcon:boolean=true;
   @ViewChild('input') input:ElementRef<HTMLInputElement>;
   @ViewChild('close') closeEl:ElementRef<HTMLElement>;
   @ViewChild('input_wapper') inputWapperEl:ElementRef<HTMLElement>;

@@ -1,6 +1,6 @@
 <ng-template #nodata>
     <tr>
-        <td scope="row" colspan="6">
+        <td scope="row" colspan="10">
             <div class="alert alert-warning text-center">
                 لايوجد بيانات للعرض
             </div>
@@ -18,8 +18,11 @@
         <app-main-table-row-section [item]="item"
                                     [collapsed]="collapsed_tr"
                                     [cols]="cols">
-            <ng-container *ngTemplateOutlet="controls; context:item">                
+            <ng-container *ngIf="controls">
+                <ng-container *ngTemplateOutlet="controls; context:item">                
+                </ng-container>
             </ng-container>
+            
         </app-main-table-row-section>
         
     </ng-container>
@@ -27,7 +30,7 @@
 
 
 <table class="table table-striped  table-bordered mt-3 text-center">
-    <thead>
+    <thead [ngStyle]="tstyle.thead" [class]="tclass.thead">
         <tr>
             <th *ngFor="let col of cols" 
                  scope="col" 
@@ -36,7 +39,7 @@
             </th>
         </tr>
     </thead>
-    <tbody class="border-0">
+    <tbody [ngStyle]="tstyle.tbody" [class]="tclass.tbody+' border-0'">
         <ng-container *ngTemplateOutlet="tb_row"></ng-container>    
     </tbody>
 </table>

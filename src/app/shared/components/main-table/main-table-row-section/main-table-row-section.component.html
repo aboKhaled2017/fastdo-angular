@@ -2,7 +2,7 @@
 
 <ng-template #content>
     <tr>
-        <th  scope="row" class="">
+        <th  scope="row" class="" *ngIf="collapsed_tr">
             <i class="fa fa-md"
                [ngClass]="{'fa-chevron-down':collapsed,'fa-chevron-up':!collapsed}" 
                (click)="toggle()"></i>
@@ -13,9 +13,10 @@
             </td>
             <ng-template #normal>
                 <td>
-                    <span [class]="col.classList?col.classList:''">
-                        {{item[col.propName]}}
-                    </span>
+                    <div [class]="col.classList?col.classList:''">
+                       <span *ngIf="!col.template; else temp">{{item[col.propName]}}</span>
+                        <ng-container #temp *ngTemplateOutlet="col.template; context:item"></ng-container>                  
+                    </div>
                 </td>
             </ng-template>
             
@@ -23,10 +24,9 @@
      
     </tr>
     <tr *ngIf="!collapsed" class="tr-collapsed" #collapsed>
-        <td colspan="6">
+        <td [attr.colspan]="collapsedColsPan">
             <div class="w-100">                                   
-                <ng-container *ngTemplateOutlet="collapsed_tr; context:{item:item}"></ng-container>
-                
+                <ng-container *ngTemplateOutlet="collapsed_tr; context:{item:item}"></ng-container> 
             </div>
         </td>
     </tr>

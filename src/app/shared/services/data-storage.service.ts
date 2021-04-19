@@ -9,8 +9,13 @@ import { IAreaModel } from '../models/IAreaModel';
 export class DataStorageService {
   private _getAllAreas=this.http.get<IAreaModel[]>(`${environment.apiUrl}/areas/all`)
     .pipe(share());
+  private _allStockNames=this.http.get<{id:string,name:string}[]>(`${environment.apiUrl}/pharmas/stknames`)  
+          .pipe(share());
   constructor(private http: HttpClient) { }
   getAllAreas(){
     return this._getAllAreas;
+  }
+  getAllStocksNames(){
+    return this._allStockNames;
   }
 }

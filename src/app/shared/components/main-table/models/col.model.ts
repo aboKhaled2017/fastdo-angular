@@ -1,3 +1,5 @@
+import { TemplateRef } from "@angular/core";
+
 export interface ITbColModel{
  name:string 
  cols:number
@@ -5,4 +7,5 @@ export interface ITbColModel{
  order?:number
  display?:boolean
  classList?:string
+ template?:TemplateRef<HTMLElement>
 }

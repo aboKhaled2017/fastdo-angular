@@ -17,7 +17,7 @@ export class DrugsRequestsComponent  {
     this.tabs=[
       {id:1, iconClass:'fa-search',link:'/pharmacy/request-drugs-from-stores/search',text:'البحث عن منتجات ادوية'},
       {id:2,iconClass:'fa-th-list',link:'/pharmacy/request-drugs-from-stores/list',text:'الطلبيات'},
-      {id:3,iconClass:'fa-edit',link:'/pharmacy/request-drugs-from-stores/edit',text:'تعديل طلبية'}
+      {id:3, iconClass:'fa-edit',link:'/pharmacy/request-drugs-from-stores/edit',text:'تعديل طلبية'}
     ];
   }
 

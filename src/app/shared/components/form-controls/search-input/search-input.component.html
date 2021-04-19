@@ -13,7 +13,7 @@
 </ng-template>
 
 <ng-template #left_btn>
-    <button class="icon-btn">
+    <button class="icon-btn" *ngIf="hasIcon">
         <span class="span1">
             <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" 
                  aria-hidden="true">
@@ -24,11 +24,11 @@
 </ng-template>
 
 
-<div class="inp-parent-wapper position-relative" #input_wapper>
+<div class="inp-parent-wapper position-relative" #input_wapper [ngClass]="{'no-icon':!hasIcon}">
     <span  *ngIf="!labelInBody" class="inp-top-label">{{label}}</span>
     <ng-container *ngTemplateOutlet="right_btn"></ng-container>  
-    <div class="inp-wrapper position-relative">
-        <div class="inp-outer">
+    <div class="inp-wrapper position-relative text-left">
+        <div class="inp-outer w-100">
             <span (click)="input.focus()" *ngIf="labelInBody" class="inp-label">{{label}}</span>
             <input #input type="text" class=""/>
         </div>

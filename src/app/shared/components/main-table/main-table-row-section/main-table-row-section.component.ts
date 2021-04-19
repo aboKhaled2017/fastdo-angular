@@ -14,7 +14,8 @@ export class MainTableRowSectionComponent implements OnInit {
   @Input('cols') cols:ITbColModel[];
   @Input('collapsed') public collapsed_tr:TemplateRef<HTMLElement>;
   collapsed=true;
-  constructor(private readonly viewContainer: ViewContainerRef) { }
+
+  constructor(private readonly viewContainer: ViewContainerRef) {}
 
   
   @ViewChild('content', { static: true }) content: TemplateRef<{}>;
@@ -25,5 +26,7 @@ export class MainTableRowSectionComponent implements OnInit {
   toggle(){
     this.collapsed=!this.collapsed;
   }
-
+  get collapsedColsPan(){
+    return this.collapsed_tr?this.cols.length+1:this.cols.length;
+  }
 }

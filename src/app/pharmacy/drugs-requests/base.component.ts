@@ -13,31 +13,22 @@ type DataListMapper<T,V>=(data:T[])=>V[]
   selector: 'app.base-mystore',
   template:''
 })
-export class BaseDrugsRequestsComponent<TResponseModel>{
+export class BaseDrugsRequestsComponent{
 
   pg:IGeneralPagination;
-  datalist:TResponseModel[]=[];
   loading:boolean;
   reqModel:IPageRequestModel;
-  setDataList=(data:TResponseModel[])=>{
-     this.datalist=this.datalistMapper
-     ?this.datalistMapper(data)
-     :data;
-  }
 
-  constructor(public storeService:DrugsRequestsService<TResponseModel>,
+  constructor(public storeService:DrugsRequestsService,
               public router:Router,
-              @Inject('type') public type:string,
-              @Inject('datalistMapper') public datalistMapper? :DataListMapper<TResponseModel,any>
-              ) {
+              @Inject('type') public type:string) {
 
     this.storeService.activatePageService.setActivePage(Constants.activePags.pharmacy_DrugsRequests,router.url);
     this.storeService.pgService.paginator.subscribe(_pg=>{
       this.pg=_pg;
     });
-    this.storeService.onFetchData.subscribe(this.setDataList);
+   
     this.storeService.loadingService.isLoading.subscribe(e=>this.loading=e);
-    this.onRefresh();
   }
 
   onPageSelected(page){

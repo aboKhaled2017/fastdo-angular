@@ -9,7 +9,6 @@ import { PharmacyDrugsRequestsRoutingModule } from './pharmacy-drugs-requests-ro
 import { ReactiveFormsModule } from '@angular/forms';
 import { DrugsRequestsService } from './drugs-requests.service';
 import { DrugsRequestsComponent } from './drugs-requests.component';
-import { BaseDrugsRequestsComponent } from './base.component';
 
 
 

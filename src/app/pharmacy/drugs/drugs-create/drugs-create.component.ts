@@ -88,9 +88,7 @@ export class DrugsCreateComponent implements OnDeactivate {
   cancelEdit(){
    this.router.navigate(['../'],{relativeTo:this.route})
   }
-  ngOnInit(): void {window['ischange']=this.isAnyChanges;
-  
-  }
+
   get f(){
     return this.fg.controls;
   }
