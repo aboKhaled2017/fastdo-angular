@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //apiUrl:"http://www.backend.fastdo.co/api"
-  apiUrl:"http://localhost:10/api"
+  apiUrl:"http://www.backend.fastdo.co/api"
+  //apiUrl:"http://localhost:10/api"
 };
 
 /*
